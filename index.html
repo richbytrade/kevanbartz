@@ -803,6 +803,492 @@
             volcanoRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
             volcanoScene = new THREE.Scene();
+            // Warm atmospheric haze like the reference
+            volcanoScene.fog = new THREE.FogExp2(0x1a1205, 0.012);
+
+            volcanoCamera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 300);
+            volcanoCamera.position.set(0, 6, 22);
+            volcanoCamera.lookAt(0, 9, 0);
+
+            // ── LIGHTING ─────────────────────────────────────────────
+            // Ambient: warm jungle twilight
+            volcanoScene.add(new THREE.AmbientLight(0x2a3515, 2.5));
+
+            // Main lava glow from crater - orange-red
+            lavaLight1 = new THREE.PointLight(0xff5500, 7.0, 140);
+            lavaLight1.position.set(0, 24, 0);
+            volcanoScene.add(lavaLight1);
+
+            // Side fill - warm golden
+            lavaLight2 = new THREE.PointLight(0xff8800, 3.5, 100);
+            lavaLight2.position.set(-10, 14, 8);
+            volcanoScene.add(lavaLight2);
+
+            // Crater core glow
+            craterGlow = new THREE.PointLight(0xff3300, 9.0, 50);
+            craterGlow.position.set(0, 22, 0);
+            volcanoScene.add(craterGlow);
+
+            // Right rim bounce light
+            const rimBounce = new THREE.PointLight(0xff6600, 2.5, 80);
+            rimBounce.position.set(12, 18, -4);
+            volcanoScene.add(rimBounce);
+
+            // Ground bounce warm
+            const groundBounce = new THREE.PointLight(0x332200, 2.0, 120);
+            groundBounce.position.set(0, 0, 10);
+            volcanoScene.add(groundBounce);
+
+            // Directional sun (coming from upper right, warm)
+            const sunLight = new THREE.DirectionalLight(0x8a9a55, 1.2);
+            sunLight.position.set(15, 40, 20);
+            volcanoScene.add(sunLight);
+
+            // ── VOLCANO GROUP ─────────────────────────────────────────
+            volcanoGroup = new THREE.Group();
+            volcanoScene.add(volcanoGroup);
+
+            // ── PHOTOREALISTIC TERRAIN using noise-displaced geometry ──
+            // Simplex-like noise using trig for vertex displacement
+            function terrainNoise(x, y, z) {
+                const s = Math.sqrt(x*x + z*z) * 0.18;
+                return  Math.sin(x * 1.7 + 0.5) * Math.cos(z * 1.3 + 0.8) * 0.9
+                      + Math.sin(x * 3.1 - 1.2) * Math.cos(z * 2.7 + 0.3) * 0.45
+                      + Math.sin(x * 5.8 + 2.1) * Math.cos(z * 4.9 - 1.5) * 0.2
+                      + Math.sin(x * 11.0 - 0.7) * Math.cos(z * 9.3 + 2.2) * 0.09;
+            }
+
+            // LOWER JUNGLE SKIRT — wide, flat, textured green-brown
+            const skirtGeo = new THREE.CylinderGeometry(13.5, 16, 5, 96, 8, false);
+            const skirtPos = skirtGeo.attributes.position;
+            for (let i = 0; i < skirtPos.count; i++) {
+                const x = skirtPos.getX(i), y = skirtPos.getY(i), z = skirtPos.getZ(i);
+                const noise = terrainNoise(x * 0.4, y, z * 0.4);
+                skirtPos.setX(i, x + noise * 0.8);
+                skirtPos.setZ(i, z + noise * 0.8);
+                if (y > 1) skirtPos.setY(i, y + Math.abs(noise) * 0.6);
+            }
+            skirtGeo.computeVertexNormals();
+            const skirtMat = new THREE.MeshLambertMaterial({ color: 0x2d3a1a, flatShading: true });
+            const skirtMesh = new THREE.Mesh(skirtGeo, skirtMat);
+            skirtMesh.position.y = 2;
+            volcanoGroup.add(skirtMesh);
+
+            // LOWER SLOPES — broad base with strong terrain displacement
+            const baseGeo = new THREE.CylinderGeometry(8.5, 13.5, 9, 96, 10, false);
+            const basePos = baseGeo.attributes.position;
+            for (let i = 0; i < basePos.count; i++) {
+                const x = basePos.getX(i), y = basePos.getY(i), z = basePos.getZ(i);
+                const noise = terrainNoise(x * 0.5, y, z * 0.5);
+                const radial = Math.sqrt(x*x + z*z);
+                const disp = noise * (1.4 - y * 0.08);
+                basePos.setX(i, x + disp * (x/Math.max(radial,0.1)) * 0.7);
+                basePos.setZ(i, z + disp * (z/Math.max(radial,0.1)) * 0.7);
+                basePos.setY(i, y + Math.abs(noise) * 0.5);
+            }
+            baseGeo.computeVertexNormals();
+            // Dark rocky brown — like weathered volcanic basalt
+            const baseMat = new THREE.MeshLambertMaterial({ color: 0x3d3020, flatShading: true });
+            const baseMesh = new THREE.Mesh(baseGeo, baseMat);
+            baseMesh.position.y = 6.5;
+            volcanoGroup.add(baseMesh);
+
+            // MID SLOPES — medium grey-brown rock
+            const midGeo = new THREE.CylinderGeometry(5.0, 8.6, 8, 80, 8, false);
+            const midPos = midGeo.attributes.position;
+            for (let i = 0; i < midPos.count; i++) {
+                const x = midPos.getX(i), y = midPos.getY(i), z = midPos.getZ(i);
+                const noise = terrainNoise(x * 0.7, y * 0.5, z * 0.7);
+                const radial = Math.sqrt(x*x + z*z);
+                basePos;
+                midPos.setX(i, x + noise * 0.9 * (x/Math.max(radial,0.1)));
+                midPos.setZ(i, z + noise * 0.9 * (z/Math.max(radial,0.1)));
+                midPos.setY(i, y + noise * 0.35);
+            }
+            midGeo.computeVertexNormals();
+            const midMat = new THREE.MeshLambertMaterial({ color: 0x4a3c2a, flatShading: true });
+            const midMesh = new THREE.Mesh(midGeo, midMat);
+            midMesh.position.y = 15;
+            volcanoGroup.add(midMesh);
+
+            // UPPER CONE — sharper, more jagged
+            const topGeo = new THREE.CylinderGeometry(2.6, 5.1, 7, 64, 6, false);
+            const topPos = topGeo.attributes.position;
+            for (let i = 0; i < topPos.count; i++) {
+                const x = topPos.getX(i), y = topPos.getY(i), z = topPos.getZ(i);
+                const noise = terrainNoise(x * 1.2, y * 0.8, z * 1.2);
+                const radial = Math.sqrt(x*x + z*z);
+                topPos.setX(i, x + noise * 0.7 * (x/Math.max(radial,0.1)));
+                topPos.setZ(i, z + noise * 0.7 * (z/Math.max(radial,0.1)));
+                topPos.setY(i, y + noise * 0.3);
+            }
+            topGeo.computeVertexNormals();
+            const topMat = new THREE.MeshLambertMaterial({ color: 0x2e2418, flatShading: true });
+            const topMesh = new THREE.Mesh(topGeo, topMat);
+            topMesh.position.y = 22.5;
+            volcanoGroup.add(topMesh);
+
+            // CRATER RIM — jagged torus
+            const rimGeo = new THREE.TorusGeometry(2.7, 0.65, 10, 40);
+            const rimPos = rimGeo.attributes.position;
+            for (let i = 0; i < rimPos.count; i++) {
+                const x = rimPos.getX(i), y = rimPos.getY(i), z = rimPos.getZ(i);
+                rimPos.setX(i, x + (Math.random()-0.5) * 0.4);
+                rimPos.setY(i, y + (Math.random()-0.5) * 0.5);
+                rimPos.setZ(i, z + (Math.random()-0.5) * 0.4);
+            }
+            rimGeo.computeVertexNormals();
+            const rimMat = new THREE.MeshLambertMaterial({ color: 0x1a1208, flatShading: true });
+            const rimMesh = new THREE.Mesh(rimGeo, rimMat);
+            rimMesh.rotation.x = Math.PI / 2;
+            rimMesh.position.y = 26.2;
+            volcanoGroup.add(rimMesh);
+
+            // GLOWING LAVA POOL
+            const poolGeo = new THREE.CylinderGeometry(2.0, 2.8, 0.8, 48);
+            const poolMat = new THREE.MeshLambertMaterial({
+                color: 0xff5500,
+                emissive: 0xff3300,
+                emissiveIntensity: 4.0
+            });
+            lavaPoolMesh = new THREE.Mesh(poolGeo, poolMat);
+            lavaPoolMesh.position.y = 26.4;
+            volcanoGroup.add(lavaPoolMesh);
+
+            // ── LAVA CRACKS down the slopes (like the reference photo) ──
+            const crackAngles = [0.3, 1.1, 1.9, 3.4, 4.6, 5.5];
+            lavaRivers = [];
+            crackAngles.forEach((angle, idx) => {
+                const len = 8 + idx % 3 * 2;
+                const crackGeo = new THREE.CylinderGeometry(0.12, 0.28, len, 6, 1);
+                const crackMat = new THREE.MeshLambertMaterial({
+                    color: 0xff5500,
+                    emissive: 0xff2200,
+                    emissiveIntensity: 3.0
+                });
+                const crack = new THREE.Mesh(crackGeo, crackMat);
+                const r = 3.2 + idx * 0.4;
+                crack.position.set(
+                    Math.sin(angle) * r,
+                    22 - idx * 0.8,
+                    Math.cos(angle) * r
+                );
+                crack.rotation.z = Math.sin(angle) * 0.55;
+                crack.rotation.x = Math.cos(angle) * 0.42;
+                crack.visible = false;
+                volcanoGroup.add(crack);
+                lavaRivers.push(crack);
+            });
+
+            // ── TREE CLUSTERS at base (jungle green like reference) ──
+            const treePositions = [];
+            for (let i = 0; i < 60; i++) {
+                const angle = (i / 60) * Math.PI * 2 + Math.random() * 0.3;
+                const r = 9 + Math.random() * 5;
+                treePositions.push({ x: Math.cos(angle)*r, z: Math.sin(angle)*r, s: 0.5 + Math.random() * 1.0 });
+            }
+            treePositions.forEach(t => {
+                // Trunk
+                const trunkGeo = new THREE.CylinderGeometry(0.08 * t.s, 0.14 * t.s, 1.2 * t.s, 5);
+                const trunkMat = new THREE.MeshLambertMaterial({ color: 0x2a1a0a });
+                const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+                trunk.position.set(t.x, 3.5 + t.s * 0.4, t.z);
+                volcanoGroup.add(trunk);
+                // Canopy
+                const canopyGeo = new THREE.ConeGeometry(0.7 * t.s, 1.8 * t.s, 6);
+                const green = new THREE.Color(0x1a3a10).lerp(new THREE.Color(0x2d5518), Math.random());
+                const canopyMat = new THREE.MeshLambertMaterial({ color: green, flatShading: true });
+                const canopy = new THREE.Mesh(canopyGeo, canopyMat);
+                canopy.position.set(t.x, 4.8 + t.s * 1.0, t.z);
+                canopy.rotation.y = Math.random() * Math.PI;
+                volcanoGroup.add(canopy);
+            });
+
+            // ── MAIN ERUPTION SPARKS ─────────────────────────────────
+            const sparkCount = 600;
+            const sparkPos   = new Float32Array(sparkCount * 3);
+            const sparkVel   = new Float32Array(sparkCount * 3);
+            const sparkCol   = new Float32Array(sparkCount * 3);
+            const sparkLife  = new Float32Array(sparkCount);
+            const sparkMaxLife = new Float32Array(sparkCount);
+
+            for (let i = 0; i < sparkCount; i++) {
+                const i3 = i * 3;
+                const angle = Math.random() * Math.PI * 2;
+                const r = Math.random() * 1.8;
+                sparkPos[i3]   = Math.cos(angle) * r;
+                sparkPos[i3+1] = 26 + Math.random() * 2;
+                sparkPos[i3+2] = Math.sin(angle) * r;
+                sparkVel[i3]   = (Math.random()-0.5) * 1.4;
+                sparkVel[i3+1] = 3.0 + Math.random() * 5.0;
+                sparkVel[i3+2] = (Math.random()-0.5) * 1.4;
+                sparkCol[i3]   = 1.0;
+                sparkCol[i3+1] = 0.3 + Math.random() * 0.4;
+                sparkCol[i3+2] = 0.0;
+                sparkLife[i]   = Math.random();
+                sparkMaxLife[i]= 0.5 + Math.random() * 1.2;
+            }
+            const sparkGeo = new THREE.BufferGeometry();
+            sparkGeo.setAttribute('position', new THREE.BufferAttribute(sparkPos, 3));
+            sparkGeo.setAttribute('color',    new THREE.BufferAttribute(sparkCol, 3));
+            const sparkMat = new THREE.PointsMaterial({
+                size: 0.55, vertexColors: true,
+                transparent: true, opacity: 1.0,
+                depthWrite: false, blending: THREE.AdditiveBlending
+            });
+            lavaParticles = new THREE.Points(sparkGeo, sparkMat);
+            lavaParticles.userData = { vel: sparkVel, life: sparkLife, maxLife: sparkMaxLife, count: sparkCount };
+            volcanoGroup.add(lavaParticles);
+
+            // ── DENSE SMOKE COLUMN (like reference — thick, billowing) ──
+            const smokeCount = 180;
+            const smokePos  = new Float32Array(smokeCount * 3);
+            const smokeVel  = new Float32Array(smokeCount * 3);
+            const smokeLife = new Float32Array(smokeCount);
+            const smokeSize = new Float32Array(smokeCount);
+
+            for (let i = 0; i < smokeCount; i++) {
+                const i3 = i * 3;
+                const angle = Math.random() * Math.PI * 2;
+                const r = Math.random() * 1.5;
+                smokePos[i3]   = Math.cos(angle) * r;
+                smokePos[i3+1] = 26 + Math.random() * 8;
+                smokePos[i3+2] = Math.sin(angle) * r;
+                smokeVel[i3]   = (Math.random()-0.5) * 0.3;
+                smokeVel[i3+1] = 0.4 + Math.random() * 1.2;
+                smokeVel[i3+2] = (Math.random()-0.5) * 0.3;
+                smokeLife[i]   = Math.random();
+                smokeSize[i]   = 1.5 + Math.random() * 3.5;
+            }
+            const smokeGeo = new THREE.BufferGeometry();
+            smokeGeo.setAttribute('position', new THREE.BufferAttribute(smokePos, 3));
+            const smokeMat = new THREE.PointsMaterial({
+                size: 3.5, color: 0x554433,
+                transparent: true, opacity: 0.35,
+                depthWrite: false, blending: THREE.NormalBlending
+            });
+            smokeParticles = new THREE.Points(smokeGeo, smokeMat);
+            smokeParticles.userData = { vel: smokeVel, life: smokeLife, size: smokeSize, count: smokeCount };
+            volcanoGroup.add(smokeParticles);
+
+            // ── EMBERS ───────────────────────────────────────────────
+            const emberCount = 250;
+            const embPos = new Float32Array(emberCount * 3);
+            const embVel = new Float32Array(emberCount * 3);
+            const embCol = new Float32Array(emberCount * 3);
+            for (let i = 0; i < emberCount; i++) {
+                const i3 = i * 3;
+                embPos[i3]   = (Math.random()-0.5) * 3;
+                embPos[i3+1] = 26 + Math.random() * 4;
+                embPos[i3+2] = (Math.random()-0.5) * 3;
+                embVel[i3]   = (Math.random()-0.5) * 2.8;
+                embVel[i3+1] = 1.5 + Math.random() * 3.5;
+                embVel[i3+2] = (Math.random()-0.5) * 2.8;
+                embCol[i3]   = 1.0;
+                embCol[i3+1] = 0.5 + Math.random() * 0.4;
+                embCol[i3+2] = 0.05;
+            }
+            const embGeo = new THREE.BufferGeometry();
+            embGeo.setAttribute('position', new THREE.BufferAttribute(embPos, 3));
+            embGeo.setAttribute('color',    new THREE.BufferAttribute(embCol, 3));
+            const embMat = new THREE.PointsMaterial({
+                size: 0.22, vertexColors: true,
+                transparent: true, opacity: 1.0,
+                depthWrite: false, blending: THREE.AdditiveBlending
+            });
+            emberParticles = new THREE.Points(embGeo, embMat);
+            emberParticles.userData = { vel: embVel, count: emberCount };
+            volcanoGroup.add(emberParticles);
+
+            // ── GROUND PLANE ─────────────────────────────────────────
+            const groundGeo = new THREE.PlaneGeometry(120, 120);
+            const groundMat = new THREE.MeshLambertMaterial({ color: 0x1a2510 });
+            const ground = new THREE.Mesh(groundGeo, groundMat);
+            ground.rotation.x = -Math.PI / 2;
+            ground.position.y = 0;
+            volcanoGroup.add(ground);
+
+            // ── RESIZE + SCROLL ───────────────────────────────────────
+            window.addEventListener('resize', () => {
+                volcanoCamera.aspect = window.innerWidth / window.innerHeight;
+                volcanoCamera.updateProjectionMatrix();
+                volcanoRenderer.setSize(window.innerWidth, window.innerHeight);
+            });
+            window.addEventListener('scroll', updateVolcanoOnScroll, { passive: true });
+            animateVolcano();
+            updateVolcanoOnScroll();
+        }
+
+        function updateVolcanoOnScroll() {
+            const maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 1);
+            volcanoScrollProgress = Math.min(window.scrollY / maxScroll, 1);
+            const p = volcanoScrollProgress;
+
+            // Theme: deep jungle green → lava amber → volcanic red
+            const themed = lerpColor3(COLOR_GREEN, COLOR_MID, COLOR_ORANGE, p);
+            document.documentElement.style.setProperty('--accent-olive', '#' + themed.getHexString());
+
+            // Lava cracks appear progressively
+            lavaRivers.forEach((r, idx) => {
+                r.visible = p > idx * 0.12;
+                if (r.visible && r.material) {
+                    r.material.emissiveIntensity = 2.5 + p * 3.0;
+                    const ec = lerpColor3(new THREE.Color(0xff3300), new THREE.Color(0xff6600), new THREE.Color(0xffaa00), p);
+                    r.material.emissive.copy(ec);
+                }
+            });
+
+            // Lava pool pulses hotter
+            if (lavaPoolMesh) {
+                lavaPoolMesh.material.emissiveIntensity = 3.5 + p * 4.0;
+            }
+
+            // Sparks intensify
+            if (lavaParticles && lavaParticles.material) {
+                lavaParticles.material.size    = 0.5 + p * 0.4;
+                lavaParticles.material.opacity = 0.85 + p * 0.15;
+                const ca = lavaParticles.geometry.attributes.color;
+                for (let i = 0; i < ca.count; i++) {
+                    ca.array[i*3]   = 1.0;
+                    ca.array[i*3+1] = 0.25 + p * 0.5;
+                    ca.array[i*3+2] = 0.0;
+                }
+                ca.needsUpdate = true;
+            }
+
+            if (craterGlow) craterGlow.intensity = 7.0 + p * 8.0;
+            if (lavaLight1) lavaLight1.intensity = 5.5 + p * 5.0;
+        }
+
+        function animateVolcano() {
+            requestAnimationFrame(animateVolcano);
+            if (!volcanoGroup || !volcanoRenderer) return;
+
+            volcanoTime += 0.016;
+            const p = volcanoScrollProgress;
+
+            // Slow rotation + scroll-driven spin
+            volcanoGroup.rotation.y = volcanoTime * 0.05 + p * 7.0;
+
+            // Camera zooms in toward crater as you scroll
+            const targetZ = 22 - p * 12;
+            const targetY = 6 + p * 5;
+            volcanoCamera.position.z += (targetZ - volcanoCamera.position.z) * 0.04;
+            volcanoCamera.position.y  = targetY + Math.sin(volcanoTime * 0.35) * 0.3;
+            volcanoCamera.lookAt(0, 10 + p * 4, 0);
+
+            // Pulsing lava lights
+            const pulse = Math.sin(volcanoTime * 3.8) * 0.35 + 1.0;
+            if (lavaLight1) lavaLight1.intensity = (5.0 + p * 4.0) * pulse;
+            if (craterGlow) craterGlow.intensity = (7.0 + p * 7.0) * (Math.sin(volcanoTime * 7) * 0.25 + 1.0);
+
+            // Lava pool shimmer
+            if (lavaPoolMesh) {
+                lavaPoolMesh.scale.y = 1.0 + Math.sin(volcanoTime * 4.5) * 0.08;
+                lavaPoolMesh.material.emissiveIntensity = (3.5 + p * 3.0) * (0.88 + Math.sin(volcanoTime * 6.0) * 0.12);
+            }
+
+            const intensity = 0.6 + p * 3.0;
+
+            // ── SPARKS ──────────────────────────────────────────────
+            if (lavaParticles) {
+                const pos  = lavaParticles.geometry.attributes.position.array;
+                const vel  = lavaParticles.userData.vel;
+                const life = lavaParticles.userData.life;
+                const maxL = lavaParticles.userData.maxLife;
+                const cnt  = lavaParticles.userData.count;
+                for (let i = 0; i < cnt; i++) {
+                    const i3 = i * 3;
+                    life[i] += 0.016 * intensity;
+                    pos[i3]   += vel[i3]   * intensity * 0.55;
+                    pos[i3+1] += vel[i3+1] * intensity;
+                    pos[i3+2] += vel[i3+2] * intensity * 0.55;
+                    vel[i3+1] -= 0.045 * intensity;
+                    if (life[i] >= maxL[i] || pos[i3+1] < 24) {
+                        const a = Math.random() * Math.PI * 2;
+                        const r = Math.random() * 1.6;
+                        pos[i3]   = Math.cos(a) * r;
+                        pos[i3+1] = 26 + Math.random() * 1.5;
+                        pos[i3+2] = Math.sin(a) * r;
+                        vel[i3]   = (Math.random()-0.5) * (1.2 + p * 2.0);
+                        vel[i3+1] = 2.5 + Math.random() * (4.5 + p * 6.0);
+                        vel[i3+2] = (Math.random()-0.5) * (1.2 + p * 2.0);
+                        life[i] = 0;
+                        maxL[i] = 0.4 + Math.random() * 1.0;
+                    }
+                }
+                lavaParticles.geometry.attributes.position.needsUpdate = true;
+            }
+
+            // ── EMBERS ───────────────────────────────────────────────
+            if (emberParticles) {
+                const pos = emberParticles.geometry.attributes.position.array;
+                const vel = emberParticles.userData.vel;
+                const cnt = emberParticles.userData.count;
+                for (let i = 0; i < cnt; i++) {
+                    const i3 = i * 3;
+                    pos[i3]   += vel[i3]   * 0.35 * intensity;
+                    pos[i3+1] += vel[i3+1] * 0.5  * intensity;
+                    pos[i3+2] += vel[i3+2] * 0.35 * intensity;
+                    vel[i3]   *= 0.98;
+                    vel[i3+1] -= 0.015 * intensity;
+                    if (pos[i3+1] < 23 || Math.abs(pos[i3]) > 14 || Math.abs(pos[i3+2]) > 14) {
+                        const a = Math.random() * Math.PI * 2;
+                        const r = Math.random() * 1.4;
+                        pos[i3]   = Math.cos(a) * r;
+                        pos[i3+1] = 26 + Math.random() * 3;
+                        pos[i3+2] = Math.sin(a) * r;
+                        vel[i3]   = (Math.random()-0.5) * (2.2 + p * 2.5);
+                        vel[i3+1] = 1.2 + Math.random() * (3.0 + p * 2.5);
+                        vel[i3+2] = (Math.random()-0.5) * (2.2 + p * 2.5);
+                    }
+                }
+                emberParticles.geometry.attributes.position.needsUpdate = true;
+                emberParticles.material.opacity = 0.7 + p * 0.3;
+            }
+
+            // ── SMOKE COLUMN (thick, billowing, drifts up) ───────────
+            if (smokeParticles) {
+                const pos  = smokeParticles.geometry.attributes.position.array;
+                const vel  = smokeParticles.userData.vel;
+                const life = smokeParticles.userData.life;
+                const cnt  = smokeParticles.userData.count;
+                for (let i = 0; i < cnt; i++) {
+                    const i3 = i * 3;
+                    life[i] += 0.005 + p * 0.004;
+                    pos[i3]   += vel[i3]   * 0.18 + Math.sin(volcanoTime * 0.8 + i * 0.3) * 0.018;
+                    pos[i3+1] += vel[i3+1] * 0.45;
+                    pos[i3+2] += vel[i3+2] * 0.18;
+                    if (life[i] > 1.0 || pos[i3+1] > 55) {
+                        const a = Math.random() * Math.PI * 2;
+                        const r = Math.random() * 1.8;
+                        pos[i3]   = Math.cos(a) * r;
+                        pos[i3+1] = 26 + Math.random() * 3;
+                        pos[i3+2] = Math.sin(a) * r;
+                        vel[i3]   = (Math.random()-0.5) * 0.4;
+                        vel[i3+1] = 0.35 + Math.random() * 1.1;
+                        vel[i3+2] = (Math.random()-0.5) * 0.4;
+                        life[i] = 0;
+                    }
+                }
+                smokeParticles.geometry.attributes.position.needsUpdate = true;
+                smokeParticles.material.opacity = 0.28 + p * 0.22;
+                smokeParticles.material.size    = 3.0 + p * 2.5;
+            }
+
+            volcanoRenderer.render(volcanoScene, volcanoCamera);
+        }        function initVolcano() {
+            const canvas = document.getElementById('volcano-canvas');
+            if (!canvas || typeof THREE === 'undefined') return;
+
+            volcanoRenderer = new THREE.WebGLRenderer({
+                canvas, alpha: true, antialias: true,
+                powerPreference: 'high-performance'
+            });
+            volcanoRenderer.setSize(window.innerWidth, window.innerHeight);
+            volcanoRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            volcanoScene = new THREE.Scene();
             volcanoScene.fog = new THREE.FogExp2(0x0a0a0a, 0.008);
 
             volcanoCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
