@@ -183,7 +183,7 @@
         <!-- 3D Volcano Background Canvas -->
         <canvas id="volcano-canvas" class="absolute inset-0 z-0"></canvas>
         <!-- Dark gradient overlay for text readability -->
-        <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/75 via-zinc-950/35 to-zinc-950/85 z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/40 via-transparent to-zinc-950/60 z-10"></div>
         
         <div class="max-w-5xl mx-auto px-6 pb-16 relative z-20">
             <div class="max-w-3xl">
@@ -803,30 +803,34 @@
             volcanoRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
             volcanoScene = new THREE.Scene();
-            volcanoScene.fog = new THREE.FogExp2(0x050505, 0.018);
+            volcanoScene.fog = new THREE.FogExp2(0x0a0a0a, 0.008);
 
-            volcanoCamera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 150);
-            volcanoCamera.position.set(0, 11, 26);
-            volcanoCamera.lookAt(0, 6, 0);
+            volcanoCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
+            volcanoCamera.position.set(0, 8, 18);
+            volcanoCamera.lookAt(0, 8, 0);
 
             // ── LIGHTING ────────────────────────────────────────────
-            volcanoScene.add(new THREE.AmbientLight(0x111111, 0.6));
+            volcanoScene.add(new THREE.AmbientLight(0x334422, 1.8));
 
-            lavaLight1 = new THREE.PointLight(0xff5500, 3.5, 60);
-            lavaLight1.position.set(0, 19, 2);
+            lavaLight1 = new THREE.PointLight(0xff6600, 8.0, 120);
+            lavaLight1.position.set(0, 22, 4);
             volcanoScene.add(lavaLight1);
 
-            lavaLight2 = new THREE.PointLight(0xff8800, 1.8, 45);
-            lavaLight2.position.set(-6, 14, 6);
+            lavaLight2 = new THREE.PointLight(0xff9900, 5.0, 90);
+            lavaLight2.position.set(-8, 16, 8);
             volcanoScene.add(lavaLight2);
 
-            craterGlow = new THREE.PointLight(0xff3300, 4.0, 30);
-            craterGlow.position.set(0, 18, 0);
+            craterGlow = new THREE.PointLight(0xff4400, 10.0, 60);
+            craterGlow.position.set(0, 20, 0);
             volcanoScene.add(craterGlow);
 
-            const skyLight = new THREE.DirectionalLight(0x334422, 0.4);
+            const skyLight = new THREE.DirectionalLight(0x556b2f, 2.0);
             skyLight.position.set(10, 30, 10);
             volcanoScene.add(skyLight);
+
+            const fillLight = new THREE.PointLight(0x223311, 3.0, 150);
+            fillLight.position.set(0, 5, 20);
+            volcanoScene.add(fillLight);
 
             // ── VOLCANO GROUP ──────────────────────────────────────
             volcanoGroup = new THREE.Group();
@@ -851,7 +855,7 @@
                 }
             }
             baseGeo.computeVertexNormals();
-            const baseMat = new THREE.MeshLambertMaterial({ color: 0x141210, flatShading: true });
+            const baseMat = new THREE.MeshLambertMaterial({ color: 0x3d3530, flatShading: true });
             const baseMesh = new THREE.Mesh(baseGeo, baseMat);
             baseMesh.position.y = 5;
             volcanoGroup.add(baseMesh);
@@ -864,21 +868,21 @@
                 midPos.setZ(i, midPos.getZ(i) + (Math.random() - 0.5) * 0.6);
             }
             midGeo.computeVertexNormals();
-            const midMat = new THREE.MeshLambertMaterial({ color: 0x1a1714, flatShading: true });
+            const midMat = new THREE.MeshLambertMaterial({ color: 0x4a3d35, flatShading: true });
             const midMesh = new THREE.Mesh(midGeo, midMat);
             midMesh.position.y = 13.75;
             volcanoGroup.add(midMesh);
 
             // Upper cone
             const topGeo = new THREE.CylinderGeometry(2.2, 3.3, 5, 60, 3, false);
-            const topMat = new THREE.MeshLambertMaterial({ color: 0x121010, flatShading: true });
+            const topMat = new THREE.MeshLambertMaterial({ color: 0x352a22, flatShading: true });
             const topMesh = new THREE.Mesh(topGeo, topMat);
             topMesh.position.y = 19.5;
             volcanoGroup.add(topMesh);
 
             // Crater rim (torus)
             const rimGeo = new THREE.TorusGeometry(2.3, 0.55, 12, 48);
-            const rimMat = new THREE.MeshLambertMaterial({ color: 0x0d0b0a, flatShading: true });
+            const rimMat = new THREE.MeshLambertMaterial({ color: 0x2a1f1a, flatShading: true });
             const rimMesh = new THREE.Mesh(rimGeo, rimMat);
             rimMesh.rotation.x = Math.PI / 2;
             rimMesh.position.y = 22.1;
@@ -887,9 +891,9 @@
             // Lava pool (glowing disc)
             const poolGeo = new THREE.CylinderGeometry(1.9, 2.5, 0.9, 48);
             const poolMat = new THREE.MeshLambertMaterial({
-                color: 0xff4400,
-                emissive: 0xff2200,
-                emissiveIntensity: 1.4
+                color: 0xff6600,
+                emissive: 0xff4400,
+                emissiveIntensity: 3.5
             });
             lavaPoolMesh = new THREE.Mesh(poolGeo, poolMat);
             lavaPoolMesh.position.y = 22.2;
@@ -900,9 +904,9 @@
             riverAngles.forEach((angle, idx) => {
                 const riverGeo = new THREE.CylinderGeometry(0.22 - idx * 0.02, 0.4 - idx * 0.02, 12, 8, 1);
                 const riverMat = new THREE.MeshLambertMaterial({
-                    color: 0xff5500,
-                    emissive: 0xcc2200,
-                    emissiveIntensity: 0.8
+                    color: 0xff6600,
+                    emissive: 0xff3300,
+                    emissiveIntensity: 2.5
                 });
                 const river = new THREE.Mesh(riverGeo, riverMat);
                 const r = 2.8;
@@ -947,8 +951,8 @@
             sparkGeo.setAttribute('position', new THREE.BufferAttribute(sparkPos, 3));
             sparkGeo.setAttribute('color',    new THREE.BufferAttribute(sparkCol, 3));
             const sparkMat = new THREE.PointsMaterial({
-                size: 0.32, vertexColors: true,
-                transparent: true, opacity: 0.9,
+                size: 0.65, vertexColors: true,
+                transparent: true, opacity: 1.0,
                 depthWrite: false, blending: THREE.AdditiveBlending
             });
             lavaParticles = new THREE.Points(sparkGeo, sparkMat);
@@ -978,8 +982,8 @@
             embGeo.setAttribute('position', new THREE.BufferAttribute(embPos, 3));
             embGeo.setAttribute('color',    new THREE.BufferAttribute(embCol, 3));
             const embMat = new THREE.PointsMaterial({
-                size: 0.13, vertexColors: true,
-                transparent: true, opacity: 0.7,
+                size: 0.28, vertexColors: true,
+                transparent: true, opacity: 1.0,
                 depthWrite: false, blending: THREE.AdditiveBlending
             });
             emberParticles = new THREE.Points(embGeo, embMat);
@@ -1081,8 +1085,8 @@
             volcanoGroup.rotation.y = volcanoTime * 0.07 + p * 8.0;
 
             // Camera: zoom toward crater as you scroll, subtle bob
-            const targetZ = 26 - p * 10;
-            const targetY = 11 + p * 2;
+            const targetZ = 18 - p * 10;
+            const targetY = 8 + p * 3;
             volcanoCamera.position.z += (targetZ - volcanoCamera.position.z) * 0.04;
             volcanoCamera.position.y = targetY + Math.sin(volcanoTime * 0.4) * 0.35;
             volcanoCamera.lookAt(0, 7 + p * 3, 0);
