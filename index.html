@@ -183,7 +183,7 @@
         <!-- 3D Volcano Background Canvas -->
         <canvas id="volcano-canvas" class="absolute inset-0 z-0"></canvas>
         <!-- Dark gradient overlay for text readability -->
-        <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/40 via-transparent to-zinc-950/60 z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/55 via-zinc-950/20 to-zinc-950/70 z-10"></div>
         
         <div class="max-w-5xl mx-auto px-6 pb-16 relative z-20">
             <div class="max-w-3xl">
@@ -812,7 +812,7 @@
             // ── LIGHTING ────────────────────────────────────────────
             volcanoScene.add(new THREE.AmbientLight(0x334422, 1.8));
 
-            lavaLight1 = new THREE.PointLight(0xff6600, 8.0, 120);
+            lavaLight1 = new THREE.PointLight(0xff6600, 5.5, 120);
             lavaLight1.position.set(0, 22, 4);
             volcanoScene.add(lavaLight1);
 
@@ -820,7 +820,7 @@
             lavaLight2.position.set(-8, 16, 8);
             volcanoScene.add(lavaLight2);
 
-            craterGlow = new THREE.PointLight(0xff4400, 10.0, 60);
+            craterGlow = new THREE.PointLight(0xff4400, 7.0, 60);
             craterGlow.position.set(0, 20, 0);
             volcanoScene.add(craterGlow);
 
