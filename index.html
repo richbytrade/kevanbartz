@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevan Bartz | Entrepreneur • Inventor • Futurist</title>
+    <meta name="description" content="Kevan Bartz — Scrappy entrepreneur, inventor, investor, and futurist based in New York City. Exited Belmont Knight Associates for $25M. Founder of Lite Garden Inc. and NextGen Business Services (successful exits). Launched Lite Garden Capital and raised $174M for private equity acquisitions. IP in sports fantasy &amp; gaming. Green energy: wave generation &amp; pipeline generators.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --accent-olive: #556b2f;
+            --accent-orange: #f59e0b;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        .section-header {
+            font-size: 1.1rem;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+            color: #556b2f;
+        }
+
+        .nav-link {
+            transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link:hover {
+            color: #556b2f;
+        }
+
+        .metric-value {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255,255,255, 0.06);
+            backdrop-filter: blur(20px);
+        }
+
+        .pro-card {
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), 
+                        box-shadow 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .pro-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+        
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 48px;
+            bottom: -24px;
+            width: 2px;
+            background: #27272a;
+        }
+
+        .attribute-card {
+            transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .attribute-card:hover {
+            border-color: #556b2f;
+            transform: translateY(-2px);
+        }
+
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .hero-bg {
+            background-image: linear-gradient(rgba(9, 9, 11, 0.65), rgba(9, 9, 11, 0.75)), url('assets/images/visionary.jpg');
+            background-size: cover;
+            background-position: center 30%;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #27272a, transparent);
+        }
+
+        .minimalist {
+            font-feature-settings: "ss02";
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200 antialiased">
+    <!-- NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/95 backdrop-blur-lg border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 rounded-full bg-[#556b2f] flex items-center justify-center">
+                        <span class="text-zinc-950 font-bold text-xl tracking-tighter">KB</span>
+                    </div>
+                    <div>
+                        <div class="font-display text-2xl font-semibold tracking-tighter">KEVAN BARTZ</div>
+                        <div class="text-[10px] text-zinc-500 -mt-1 tracking-[3px]">NEW YORK, NY</div>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
+                    <a href="#about" class="nav-link text-zinc-400 hover:text-white">About</a>
+                    <a href="#ventures" class="nav-link text-zinc-400 hover:text-white">Ventures</a>
+                    <a href="#innovations" class="nav-link text-zinc-400 hover:text-white">Innovations</a>
+                    <a href="#mindset" class="nav-link text-zinc-400 hover:text-white">Mindset</a>
+                    <a href="#timeline" class="nav-link text-zinc-400 hover:text-white">Timeline</a>
+                </div>
+
+                <div class="flex items-center gap-x-4">
+                    <!-- CTA -->
+                    <a href="#contact" 
+                       class="hidden md:inline-flex items-center px-5 py-2.5 text-sm font-semibold rounded-full bg-white text-zinc-950 hover:bg-[#556b2f] transition-colors">
+                        Connect
+                    </a>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn"
+                            class="md:hidden w-10 h-10 flex items-center justify-center text-zinc-400 hover:text-white">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 z-40 bg-zinc-950 pt-20">
+        <div class="px-6 py-8 flex flex-col gap-y-6 text-lg font-medium">
+            <a href="#about" class="mobile-link py-2 text-zinc-300">About</a>
+            <a href="#ventures" class="mobile-link py-2 text-zinc-300">Ventures</a>
+            <a href="#innovations" class="mobile-link py-2 text-zinc-300">Innovations</a>
+            <a href="#mindset" class="mobile-link py-2 text-zinc-300">Mindset</a>
+            <a href="#timeline" class="mobile-link py-2 text-zinc-300">Timeline</a>
+            <div class="pt-4">
+                <a href="#contact" class="mobile-link inline-flex items-center justify-center w-full px-6 py-3.5 rounded-2xl bg-white text-zinc-950 font-semibold">Connect Directly</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="min-h-[100dvh] flex items-center pt-20 relative overflow-hidden">
+        <!-- 3D Volcano Background Canvas -->
+        <canvas id="volcano-canvas" class="absolute inset-0 z-0"></canvas>
+        <!-- Dark gradient overlay for text readability -->
+        <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/75 via-zinc-950/35 to-zinc-950/85 z-10"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 pb-16 relative z-20">
+            <div class="max-w-3xl">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur border border-white/20 text-sm mb-6">
+                    <div class="w-2 h-2 bg-[#556b2f] rounded-full animate-pulse"></div>
+                    <span class="font-medium tracking-wider text-[#7a8c4d]">BASED IN NEW YORK CITY</span>
+                </div>
+
+                <h1 class="font-display text-7xl md:text-8xl leading-[0.9] tracking-tighter font-semibold mb-4">
+                    KEVAN<br>BARTZ
+                </h1>
+                
+                <p class="max-w-lg text-2xl md:text-3xl text-zinc-300 tracking-tight mb-8">
+                    Scrappy entrepreneur.<br>
+                    Inventor &amp; futurist.<br>
+                    Free thinker building what matters.
+                </p>
+
+                <!-- Key Metrics -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                    <div class="glass rounded-3xl px-5 py-4 border border-white/10">
+                        <div class="text-[#f59e0b] text-xs tracking-[2px] font-medium mb-1">SUCCESSFUL EXIT</div>
+                        <div class="metric-value text-white">$25M</div>
+                    </div>
+                    <div class="glass rounded-3xl px-5 py-4 border border-white/10">
+                        <div class="text-[#f59e0b] text-xs tracking-[2px] font-medium mb-1">CAPITAL RAISED</div>
+                        <div class="metric-value text-white">$174M</div>
+                    </div>
+                    <div class="glass rounded-3xl px-5 py-4 border border-white/10">
+                        <div class="text-[#556b2f] text-xs tracking-[2px] font-medium mb-1">GREEN TECH</div>
+                        <div class="metric-value text-white">WAVE + PIPELINE</div>
+                    </div>
+                    <div class="glass rounded-3xl px-5 py-4 border border-white/10">
+                        <div class="text-[#556b2f] text-xs tracking-[2px] font-medium mb-1">PREVIOUS EXITS</div>
+                        <div class="metric-value text-white">3+</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-4">
+                    <a href="#ventures" 
+                       class="inline-flex items-center justify-center gap-x-2 px-8 py-4 rounded-2xl bg-[#f59e0b] hover:bg-amber-500 active:bg-amber-600 transition-all text-lg font-semibold text-zinc-950 shadow-lg shadow-amber-950/50">
+                        <span>Explore Ventures</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" 
+                       class="inline-flex items-center justify-center gap-x-2 px-8 py-4 rounded-2xl border border-white/30 hover:bg-white/5 transition-all text-lg font-medium">
+                        Direct Line
+                    </a>
+                </div>
+                
+                <div class="mt-8 flex items-center gap-x-3 text-sm text-zinc-400">
+                    <div class="flex -space-x-1">
+                        <div class="w-6 h-6 rounded-full bg-zinc-700 ring-1 ring-zinc-950 overflow-hidden"><img src="assets/images/hero-portrait.jpg" class="w-full h-full object-cover"></div>
+                        <div class="w-6 h-6 rounded-full bg-zinc-700 ring-1 ring-zinc-950 overflow-hidden"><img src="assets/images/hero-portrait.jpg" class="w-full h-full object-cover"></div>
+                    </div>
+                    <span>10+ years building • New York City</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:block">
+            <a href="#about" class="flex flex-col items-center text-xs tracking-widest text-zinc-500 hover:text-zinc-300 transition-colors">
+                <span>SCROLL TO BEGIN</span>
+                <i class="fa-solid fa-chevron-down mt-1.5 text-lg animate-bounce"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about" class="max-w-5xl mx-auto px-6 pt-20 pb-16">
+        <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+            <!-- Text -->
+            <div class="flex-1">
+                <div class="section-header mb-3">01 / ABOUT</div>
+                <h2 class="font-display text-6xl tracking-tighter leading-none mb-8">A builder who thinks differently.</h2>
+                
+                <div class="prose prose-invert max-w-none text-[15px] leading-relaxed text-zinc-300 space-y-6">
+                    <p>Kevan Bartz is a <span class="font-semibold text-white">scrappy entrepreneur</span>, technology enthusiast, inventor, and investor who operates with the clarity of an abstract thinker and the conviction of a futurist. Based in New York City, he has spent more than a decade founding and scaling companies that create tangible value.</p>
+                    
+                    <p>He successfully exited <span class="font-semibold text-white">Belmont Knight Associates</span> via acquisition for $25 million. He is also the founder of <span class="font-semibold text-white">Lite Garden Inc.</span> and <span class="font-semibold text-white">NextGen Business Services</span> — both previous successful exits. He recently launched <span class="font-semibold text-[#f59e0b]">Lite Garden Capital</span> and raised $174 million for future private equity acquisitions, applying minimalist principles and scrappy execution to institutional capital deployment.</p>
+                    
+                    <p>His intellectual property underpins multiple leading sports fantasy and online gambling platforms—quietly powering user experiences for millions while generating significant returns through strategic licensing and partnerships.</p>
+                    
+                    <p>Beyond business, Kevan contributes to the scientific community through green energy innovation. His work on <span class="font-semibold text-[#556b2f]">wave generation technology</span> and <span class="font-semibold text-[#556b2f]">pipeline generators</span> explores new frontiers in sustainable power—turning natural forces and existing infrastructure into clean, efficient energy solutions.</p>
+                </div>
+            </div>
+
+            <!-- Side Photo -->
+            <div class="lg:w-5/12 xl:w-5/12 flex-shrink-0">
+                <div class="sticky top-24">
+                    <div class="rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl">
+                        <img src="assets/images/car-guy.jpg" alt="Kevan Bartz — Car enthusiast" 
+                             class="w-full h-full object-contain block">
+                    </div>
+                    <div class="mt-4 text-xs text-zinc-500 px-1 flex items-center gap-x-2">
+                        <i class="fa-solid fa-globe"></i>
+                        <span>Operating globally • Based in New York City</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-5xl mx-auto"></div>
+
+    <!-- VENTURES -->
+    <section id="ventures" class="max-w-5xl mx-auto px-6 pt-16 pb-20">
+        <div class="section-header mb-3">02 / VENTURES</div>
+        <h2 class="font-display text-6xl tracking-tighter mb-4">Companies built. Exits realized. Capital deployed.</h2>
+        <p class="max-w-xl text-lg text-zinc-400 mb-10">From scrappy founding to successful exits and now deploying significant institutional capital through Lite Garden Capital.</p>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Lite Garden Capital (Current Flagship) -->
+            <div class="pro-card bg-zinc-900 border border-[#556b2f]/40 rounded-3xl p-8 flex flex-col ring-1 ring-[#556b2f]/30">
+                <div class="flex items-center gap-x-3 mb-6">
+                    <div class="w-11 h-11 rounded-2xl bg-[#f59e0b]/10 flex items-center justify-center">
+                        <i class="fa-solid fa-chart-line text-[#f59e0b] text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-xl tracking-tight">Lite Garden Capital</div>
+                        <div class="text-[#f59e0b] text-sm font-medium">FOUNDER &amp; MANAGING PARTNER</div>
+                    </div>
+                </div>
+                <div class="flex-1 text-sm text-zinc-300 leading-relaxed">
+                    Newly launched private equity vehicle. Focused on high-conviction acquisitions in technology, infrastructure, and growth businesses.
+                </div>
+                <div class="mt-8 pt-6 border-t border-zinc-800">
+                    <div class="text-[#f59e0b] text-3xl font-display tracking-tighter">$174M</div>
+                    <div class="text-xs uppercase tracking-widest text-zinc-500 font-medium">RAISED FOR FUTURE ACQUISITIONS</div>
+                </div>
+            </div>
+
+            <!-- Belmont Knight Associates (Exit) -->
+            <div class="pro-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8 flex flex-col">
+                <div class="flex items-center gap-x-3 mb-6">
+                    <div class="w-11 h-11 rounded-2xl bg-[#556b2f]/10 flex items-center justify-center">
+                        <i class="fa-solid fa-handshake text-[#556b2f] text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-xl tracking-tight">Belmont Knight Associates</div>
+                        <div class="text-[#556b2f] text-sm font-medium">FORMER MANAGING PARTNER</div>
+                    </div>
+                </div>
+                <div class="flex-1 text-sm text-zinc-300 leading-relaxed">
+                    Built and scaled a premier business services and private equity platform over a decade+ of hands-on leadership and operational excellence.
+                </div>
+                <div class="mt-8 pt-6 border-t border-zinc-800 text-xs uppercase tracking-widest text-[#f59e0b] font-semibold">
+                    SUCCESSFULLY EXITED VIA ACQUISITION — $25 MILLION
+                </div>
+            </div>
+
+            <!-- Lite Garden Inc (Previous Exit) -->
+            <div class="pro-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8 flex flex-col">
+                <div class="flex items-center gap-x-3 mb-6">
+                    <div class="w-11 h-11 rounded-2xl bg-[#556b2f]/10 flex items-center justify-center">
+                        <i class="fa-solid fa-seedling text-[#556b2f] text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-xl tracking-tight">Lite Garden Inc.</div>
+                        <div class="text-[#556b2f] text-sm font-medium">FOUNDER • SUCCESSFUL EXIT</div>
+                    </div>
+                </div>
+                <div class="flex-1 text-sm text-zinc-300 leading-relaxed">
+                    Innovative venture delivering practical technology and efficient systems. Built with minimalist principles and a focus on real utility and scalable execution.
+                </div>
+                <div class="mt-8 pt-6 border-t border-zinc-800">
+                    <div class="text-[#f59e0b] text-lg font-display tracking-tighter">$14M Combined</div>
+                    <div class="text-xs uppercase tracking-widest text-zinc-500 font-medium">LITE GARDEN INC. + NEXTGEN BUSINESS SERVICES</div>
+                </div>
+            </div>
+
+            <!-- NextGen Business Services (Previous Exit) -->
+            <div class="pro-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8 flex flex-col">
+                <div class="flex items-center gap-x-3 mb-6">
+                    <div class="w-11 h-11 rounded-2xl bg-[#556b2f]/10 flex items-center justify-center">
+                        <i class="fa-solid fa-globe text-[#556b2f] text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-xl tracking-tight">NextGen Business Services</div>
+                        <div class="text-[#556b2f] text-sm font-medium">FOUNDER • SUCCESSFUL EXIT</div>
+                    </div>
+                </div>
+                <div class="flex-1 text-sm text-zinc-300 leading-relaxed">
+                    Delivered next-generation business solutions and strategic services. Modern operational frameworks that helped ambitious organizations scale efficiently.
+                </div>
+                <div class="mt-6 pt-6 border-t border-zinc-800">
+                    <div class="text-xs uppercase tracking-widest text-[#556b2f] font-medium mb-2">KEY IP LEGACY</div>
+                    <div class="text-sm text-zinc-400">Core intellectual property continues to power major sports fantasy platforms and online gambling operators worldwide.</div>
+                    <div class="mt-3 text-xs text-zinc-500 uppercase tracking-widest">PART OF $14M COMBINED EXIT WITH LITE GARDEN INC.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-5xl mx-auto"></div>
+
+    <!-- INNOVATIONS -->
+    <section id="innovations" class="max-w-5xl mx-auto px-6 pt-16 pb-20">
+        <div class="grid lg:grid-cols-12 gap-x-12 gap-y-10 items-center">
+            <div class="lg:col-span-7">
+                <div class="section-header mb-3">03 / INNOVATIONS</div>
+                <h2 class="font-display text-6xl tracking-tighter leading-none mb-6">Green energy.<br>Real invention.<br>Future infrastructure.</h2>
+                
+                <div class="space-y-8 text-[15px] text-zinc-300">
+                    <div>
+                        <div class="flex items-center gap-x-3 mb-3">
+                            <i class="fa-solid fa-water text-[#556b2f] text-xl w-6"></i>
+                            <div class="font-semibold text-white text-lg tracking-tight">Wave Generation Technology</div>
+                        </div>
+                        <p class="pl-9">Advancing systems that efficiently convert the kinetic energy of ocean and water waves into reliable, clean electricity. Focused on practical deployment, durability in harsh marine environments, and maximizing energy yield for coastal and island communities.</p>
+                    </div>
+                    
+                    <div>
+                        <div class="flex items-center gap-x-3 mb-3">
+                            <i class="fa-solid fa-pipe text-[#556b2f] text-xl w-6"></i>
+                            <div class="font-semibold text-white text-lg tracking-tight">Pipeline Generators</div>
+                        </div>
+                        <p class="pl-9">Developing innovative generator technologies integrated with pipeline infrastructure. These systems recover otherwise lost energy from fluid dynamics and pressure differentials, turning existing energy transport networks into distributed power producers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5">
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+                    <div class="uppercase text-[#556b2f] text-xs tracking-[3px] font-semibold mb-4">TECHNOLOGY ENTHUSIAST • INVENTOR</div>
+                    <div class="text-2xl font-display tracking-tighter mb-4">Abstract thinking applied to the physical world.</div>
+                    <p class="text-sm text-zinc-400">Every invention starts with questioning assumptions. Kevan brings a futurist lens and minimalist discipline to energy systems—designing for elegance, efficiency, and real-world scalability.</p>
+                    
+                    <div class="mt-8 pt-6 border-t border-zinc-700 flex items-center gap-x-4 text-xs">
+                        <div class="px-4 py-2 bg-zinc-950 rounded-2xl border border-zinc-800">PATENTS &amp; IP IN DEVELOPMENT</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-5xl mx-auto"></div>
+
+    <!-- MINDSET / ATTRIBUTES -->
+    <section id="mindset" class="max-w-5xl mx-auto px-6 pt-16 pb-20">
+        <div class="section-header mb-3">04 / THE MINDSET</div>
+        <h2 class="font-display text-6xl tracking-tighter mb-3">Ten principles. One operating system.</h2>
+        <p class="max-w-md text-lg text-zinc-400 mb-10">These attributes aren't labels—they're the lens through which every decision is made.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            <!-- Attribute Cards -->
+            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
+                <div class="flex items-center gap-x-3 mb-4">
+                    <i class="fa-solid fa-fist-raised text-[#556b2f] text-xl"></i>
+                    <div class="font-semibold tracking-tight">Scrappy Entrepreneur</div>
+                </div>
+                <p class="text-sm text-zinc-400">Resourceful execution. No excuses. Built multiple companies from the ground up with grit, creativity, and relentless focus on outcomes.</p>
+            </div>
+
+            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
+                <div class="flex items-center gap-x-3 mb-4">
+                    <i class="fa-solid fa-microchip text-[#556b2f] text-xl"></i>
+                    <div class="font-semibold tracking-tight">Technology Enthusiast</div>
+                </div>
+                <p class="text-sm text-zinc-400">Obsessed with leverage. Constantly exploring new tools, platforms, and systems that multiply impact and reduce friction.</p>
+            </div>
+
+            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
+                <div class="flex items-center gap-x-3 mb-4">
+                    <i class="fa-solid fa-lightbulb text-[#556b2f] text-xl"></i>
+                    <div class="font-semibold tracking-tight">Inventor</div>
+                </div>
+                <p class="text-sm text-zinc-400">Turns abstract ideas into working prototypes and protected IP. Green energy systems, digital platforms, and operational tools.</p>
+            </div>
+
+            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
+                <div class="flex items-center gap-x-3 mb-4">
+                    <i class="fa-solid fa-chart-line text-[#556b2f] text-xl"></i>
+                    <div class="font-semibold tracking-tight">Investor</div>
+                </div>
+                <p class="text-sm text-zinc-400">Deploys capital with conviction. Launching PE fund to back founders who share the same clarity and execution bias.</p>
+            </div>
+
+            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
+                <div class="flex items-center gap-x-3 mb-4">
+                    <i class="fa-solid fa-brain text-[#556b2f] text-xl"></i>
+                    <div class="font-semibold tracking-tight">Abstract Thinker</div>
+                </div>
+                <p class="text-sm text-zinc-400">Sees systems, patterns, and leverage points others miss. Connects disparate ideas into elegant, high-impact solutions.</p>
+            </div>
+
+            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
+                <div class="flex items-center gap-x-3 mb-4">
+                    <i class="fa-solid fa-car text-[#556b2f] text-xl"></i>
+                    <div class="font-semibold tracking-tight">Car Guy</div>
+                </div>
+                <p class="text-sm text-zinc-400">Engineering appreciation meets performance obsession. Precision, speed, and beautiful mechanics inform how he builds everything else.</p>
+            </div>
+
+            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
+                <div class="flex items-center gap-x-3 mb-4">
+                    <i class="fa-solid fa-dumbbell text-[#556b2f] text-xl"></i>
+                    <div class="font-semibold tracking-tight">Athletic</div>
+                </div>
+                <p class="text-sm text-zinc-400">Discipline forged in the gym translates directly to business. Consistency, recovery, and pushing limits define the approach.</p>
+            </div>
+
+            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
+                <div class="flex items-center gap-x-3 mb-4">
+                    <i class="fa-solid fa-rocket text-[#556b2f] text-xl"></i>
+                    <div class="font-semibold tracking-tight">Futurist</div>
+                </div>
+                <p class="text-sm text-zinc-400">Anticipates shifts in technology, energy, and human systems. Positions ventures and inventions at the edge of what's next.</p>
+            </div>
+
+            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
+                <div class="flex items-center gap-x-3 mb-4">
+                    <i class="fa-solid fa-compress-arrows-alt text-[#556b2f] text-xl"></i>
+                    <div class="font-semibold tracking-tight">Minimalist</div>
+                </div>
+                <p class="text-sm text-zinc-400">Eliminates noise. Focuses only on what creates outsized value. Clean lines in life, code, strategy, and design.</p>
+            </div>
+
+
+        </div>
+    </section>
+
+    <div class="section-divider max-w-5xl mx-auto"></div>
+
+    <!-- TIMELINE -->
+    <section id="timeline" class="max-w-5xl mx-auto px-6 pt-16 pb-20">
+        <div class="section-header mb-3">05 / TIMELINE</div>
+        <h2 class="font-display text-6xl tracking-tighter mb-10">Mission log.</h2>
+
+        <div class="max-w-3xl space-y-8">
+            <!-- Timeline items -->
+            <div class="timeline-item flex gap-x-6">
+                <div class="w-8 h-8 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 flex-shrink-0 flex items-center justify-center mt-1">
+                    <div class="w-2.5 h-2.5 bg-[#f59e0b] rounded-full"></div>
+                </div>
+                <div class="flex-1 pb-8">
+                    <div class="flex items-baseline gap-x-3 mb-1">
+                        <div class="font-mono text-[#f59e0b] text-sm font-medium">2026</div>
+                        <div class="font-semibold text-xl tracking-tight">Lite Garden Capital Launched + $174M Raised</div>
+                    </div>
+                    <div class="text-sm text-zinc-400">Successfully launched new private equity platform and closed $174 million in commitments for future high-conviction acquisitions across technology, infrastructure, and growth sectors.</div>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-xs rounded-full bg-zinc-900 border border-zinc-700 text-[#f59e0b]">LITE GARDEN CAPITAL</span>
+                        <span class="px-3 py-1 text-xs rounded-full bg-zinc-900 border border-zinc-700">PE FUND</span>
+                        <span class="px-3 py-1 text-xs rounded-full bg-zinc-900 border border-zinc-700">$174M RAISED</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item flex gap-x-6">
+                <div class="w-8 h-8 rounded-full bg-[#556b2f]/10 border border-[#556b2f]/30 flex-shrink-0 flex items-center justify-center mt-1">
+                    <div class="w-2.5 h-2.5 bg-[#556b2f] rounded-full"></div>
+                </div>
+                <div class="flex-1 pb-8">
+                    <div class="flex items-baseline gap-x-3 mb-1">
+                        <div class="font-mono text-[#556b2f] text-sm font-medium">2023 — 2025</div>
+                        <div class="font-semibold text-xl tracking-tight">IP Development &amp; Licensing</div>
+                    </div>
+                    <div class="text-sm text-zinc-400">Core intellectual property developed and licensed to major operators in sports fantasy and online gambling. Quiet infrastructure powering user experiences at scale.</div>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-xs rounded-full bg-zinc-900 border border-zinc-700 text-[#7a8c4d]">IP</span>
+                        <span class="px-3 py-1 text-xs rounded-full bg-zinc-900 border border-zinc-700">FANTASY SPORTS</span>
+                        <span class="px-3 py-1 text-xs rounded-full bg-zinc-900 border border-zinc-700">iGAMING</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item flex gap-x-6">
+                <div class="w-8 h-8 rounded-full bg-[#556b2f]/10 border border-[#556b2f]/30 flex-shrink-0 flex items-center justify-center mt-1">
+                    <div class="w-2.5 h-2.5 bg-[#556b2f] rounded-full"></div>
+                </div>
+                <div class="flex-1 pb-8">
+                    <div class="flex items-baseline gap-x-3 mb-1">
+                        <div class="font-mono text-[#556b2f] text-sm font-medium">2020 — PRESENT</div>
+                        <div class="font-semibold text-xl tracking-tight">Green Energy R&amp;D</div>
+                    </div>
+                    <div class="text-sm text-zinc-400">Active development of wave generation systems and pipeline-integrated generators. Bridging scientific research with practical, deployable clean energy technology.</div>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-xs rounded-full bg-zinc-900 border border-zinc-700 text-[#7a8c4d]">WAVE ENERGY</span>
+                        <span class="px-3 py-1 text-xs rounded-full bg-zinc-900 border border-zinc-700">SUSTAINABLE INFRASTRUCTURE</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item flex gap-x-6">
+                <div class="w-8 h-8 rounded-full bg-[#556b2f]/10 border border-[#556b2f]/30 flex-shrink-0 flex items-center justify-center mt-1">
+                    <div class="w-2.5 h-2.5 bg-[#556b2f] rounded-full"></div>
+                </div>
+                <div class="flex-1 pb-8">
+                    <div class="flex items-baseline gap-x-3 mb-1">
+                        <div class="font-mono text-[#556b2f] text-sm font-medium">2018 — 2025</div>
+                        <div class="font-semibold text-xl tracking-tight">Lite Garden Inc. &amp; NextGen Business Services — Successful Exits</div>
+                    </div>
+                    <div class="text-sm text-zinc-400">Founded, scaled, and successfully exited both ventures. Delivered strong returns and valuable IP (sports fantasy &amp; iGaming) while building operational excellence and minimalist systems that scaled efficiently.</div>
+                </div>
+            </div>
+
+            <div class="timeline-item flex gap-x-6">
+                <div class="w-8 h-8 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 flex-shrink-0 flex items-center justify-center mt-1">
+                    <div class="w-2.5 h-2.5 bg-[#f59e0b] rounded-full"></div>
+                </div>
+                <div class="flex-1 pb-8">
+                    <div class="flex items-baseline gap-x-3 mb-1">
+                        <div class="font-mono text-[#f59e0b] text-sm font-medium">EXIT • 2025</div>
+                        <div class="font-semibold text-xl tracking-tight">Belmont Knight Associates Acquired — $25M</div>
+                    </div>
+                    <div class="text-sm text-zinc-400">Successfully exited Belmont Knight Associates via strategic acquisition for $25 million after more than a decade of building and scaling the platform as Managing Partner.</div>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-xs rounded-full bg-zinc-900 border border-zinc-700 text-[#f59e0b]">$25M EXIT</span>
+                        <span class="px-3 py-1 text-xs rounded-full bg-zinc-900 border border-zinc-700">SUCCESSFUL LIQUIDITY</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="bg-zinc-900 border-t border-zinc-800">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="max-w-2xl">
+                <div class="section-header mb-3">06 / CONNECT</div>
+                <h2 class="font-display text-6xl tracking-tighter mb-4">Direct line.</h2>
+                <p class="text-xl text-zinc-400 mb-10">For partnerships, investments, speaking engagements, press, or meaningful conversations.</p>
+
+                <div class="space-y-4">
+                    <a href="mailto:inquiries@kevanbartz.com" 
+                       class="group flex items-center justify-between px-8 py-5 bg-zinc-950 hover:bg-zinc-800 border border-zinc-700 hover:border-[#556b2f]/50 rounded-3xl transition-all">
+                        <div>
+                            <div class="text-[#556b2f] text-xs tracking-[2px] font-medium">EMAIL</div>
+                            <div class="font-medium text-lg group-hover:text-[#556b2f] transition-colors">inquiries@kevanbartz.com</div>
+                        </div>
+                        <i class="fa-solid fa-envelope text-2xl text-zinc-600 group-hover:text-[#556b2f] transition-colors"></i>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/kevan-bartz-2291b010b" target="_blank"
+                       class="group flex items-center justify-between px-8 py-5 bg-zinc-950 hover:bg-zinc-800 border border-zinc-700 hover:border-[#556b2f]/50 rounded-3xl transition-all">
+                        <div>
+                            <div class="text-[#556b2f] text-xs tracking-[2px] font-medium">LINKEDIN</div>
+                            <div class="font-medium text-lg group-hover:text-[#556b2f] transition-colors">Connect professionally</div>
+                        </div>
+                        <i class="fa-brands fa-linkedin text-2xl text-zinc-600 group-hover:text-[#556b2f] transition-colors"></i>
+                    </a>
+                </div>
+
+                <div class="mt-10 text-xs text-zinc-500">
+                    Based in New York City • Open to global opportunities<br>
+                    This site and brand are managed directly by Kevan Bartz.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-zinc-800 py-8">
+        <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-y-4 text-xs text-zinc-500">
+            <div>© 2026 Kevan Bartz. All rights reserved.</div>
+            <div class="flex items-center gap-x-6">
+                <div>Built with intention in New York City.</div>
+                <div class="hidden md:block">•</div>
+                <a href="#" class="hover:text-zinc-300 transition-colors">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent', '#14b8a6');
+        }
+        
+        // Mobile menu
+        function setupMobileMenu() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const links = document.querySelectorAll('.mobile-link');
+            
+            if (!btn || !menu) return;
+            
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                }
+            });
+            
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.add('hidden');
+                    const icon = btn.querySelector('i');
+                    if (icon) {
+                        icon.classList.add('fa-bars');
+                        icon.classList.remove('fa-times');
+                    }
+                });
+            });
+        }
+        
+        // Smooth scroll for anchor links
+        function setupSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        const navHeight = 80;
+                        const elementPosition = target.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.scrollY - navHeight;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Active nav highlighting (simple)
+        function setupActiveNav() {
+            const sections = ['about', 'ventures', 'innovations', 'mindset', 'timeline', 'contact'];
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                const scrollPosition = window.scrollY + 120;
+                
+                sections.forEach(sectionId => {
+                    const section = document.getElementById(sectionId);
+                    if (section && scrollPosition >= section.offsetTop) {
+                        current = sectionId;
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('text-white', 'font-semibold');
+                    link.classList.add('text-zinc-400');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('text-white', 'font-semibold');
+                        link.classList.remove('text-zinc-400');
+                    }
+                });
+            });
+        }
+        
+        // Keyboard accessibility
+        function setupKeyboardNav() {
+            document.addEventListener('keydown', function(e) {
+                if (e.key === '/' && document.activeElement.tagName === 'BODY') {
+                    e.preventDefault();
+                    const contact = document.getElementById('contact');
+                    if (contact) contact.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        }
+        
+        // Initialize everything
+        function init() {
+            initializeTailwind();
+            setupMobileMenu();
+            setupSmoothScroll();
+            setupActiveNav();
+            setupKeyboardNav();
+            
+            // Initialize the 3D Volcano background
+            initVolcano();
+            
+            // Easter egg: Konami-ish for fun (optional, light)
+            console.log('%c[Kevan Bartz] Personal brand site initialized. Free thinker mode: active.', 'color:#3f3f46');
+        }
+        
+        window.onload = init;
+
+        // ============================================
+        // 3D VOLCANO BACKGROUND - Cinematic Scroll Experience v2
+        // Full rebuild: multi-layer volcano mesh, flowing lava rivers,
+        // billboard smoke clouds, ember sparks, scroll-driven camera zoom,
+        // and a dramatic green → orange → deep-red color theme transition.
+        // ============================================
+
+        let volcanoScene, volcanoCamera, volcanoRenderer;
+        let volcanoGroup, lavaParticles, smokeParticles, emberParticles;
+        let lavaLight1, lavaLight2, craterGlow;
+        let lavaRivers = [];
+        let lavaPoolMesh;
+        let volcanoScrollProgress = 0;
+        let volcanoTime = 0;
+
+        // Color theme anchors
+        const COLOR_GREEN  = new THREE.Color(0x4a7c3f);  // Rich forest green
+        const COLOR_MID    = new THREE.Color(0xd97706);  // Amber transition
+        const COLOR_ORANGE = new THREE.Color(0xff4500);  // Deep volcanic orange-red
+
+        function lerpColor3(a, b, c, t) {
+            if (t < 0.5) return a.clone().lerp(b, t * 2);
+            return b.clone().lerp(c, (t - 0.5) * 2);
+        }
+
+        function initVolcano() {
+            const canvas = document.getElementById('volcano-canvas');
+            if (!canvas || typeof THREE === 'undefined') return;
+
+            volcanoRenderer = new THREE.WebGLRenderer({
+                canvas, alpha: true, antialias: true,
+                powerPreference: 'high-performance'
+            });
+            volcanoRenderer.setSize(window.innerWidth, window.innerHeight);
+            volcanoRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            volcanoScene = new THREE.Scene();
+            volcanoScene.fog = new THREE.FogExp2(0x050505, 0.018);
+
+            volcanoCamera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 150);
+            volcanoCamera.position.set(0, 11, 26);
+            volcanoCamera.lookAt(0, 6, 0);
+
+            // ── LIGHTING ────────────────────────────────────────────
+            volcanoScene.add(new THREE.AmbientLight(0x111111, 0.6));
+
+            lavaLight1 = new THREE.PointLight(0xff5500, 3.5, 60);
+            lavaLight1.position.set(0, 19, 2);
+            volcanoScene.add(lavaLight1);
+
+            lavaLight2 = new THREE.PointLight(0xff8800, 1.8, 45);
+            lavaLight2.position.set(-6, 14, 6);
+            volcanoScene.add(lavaLight2);
+
+            craterGlow = new THREE.PointLight(0xff3300, 4.0, 30);
+            craterGlow.position.set(0, 18, 0);
+            volcanoScene.add(craterGlow);
+
+            const skyLight = new THREE.DirectionalLight(0x334422, 0.4);
+            skyLight.position.set(10, 30, 10);
+            volcanoScene.add(skyLight);
+
+            // ── VOLCANO GROUP ──────────────────────────────────────
+            volcanoGroup = new THREE.Group();
+            volcanoScene.add(volcanoGroup);
+
+            // Ground plane
+            const groundGeo = new THREE.PlaneGeometry(80, 80, 1, 1);
+            const groundMat = new THREE.MeshLambertMaterial({ color: 0x0a0805, side: THREE.FrontSide });
+            const ground = new THREE.Mesh(groundGeo, groundMat);
+            ground.rotation.x = -Math.PI / 2;
+            ground.position.y = 0.01;
+            volcanoGroup.add(ground);
+
+            // Base / lower flanks — wide flat-shaded rock
+            const baseGeo = new THREE.CylinderGeometry(5.8, 12, 10, 80, 6, false);
+            const basePos = baseGeo.attributes.position;
+            for (let i = 0; i < basePos.count; i++) {
+                const y = basePos.getY(i);
+                if (y < 4) {
+                    basePos.setX(i, basePos.getX(i) + (Math.random() - 0.5) * 0.9);
+                    basePos.setZ(i, basePos.getZ(i) + (Math.random() - 0.5) * 0.9);
+                }
+            }
+            baseGeo.computeVertexNormals();
+            const baseMat = new THREE.MeshLambertMaterial({ color: 0x141210, flatShading: true });
+            const baseMesh = new THREE.Mesh(baseGeo, baseMat);
+            baseMesh.position.y = 5;
+            volcanoGroup.add(baseMesh);
+
+            // Mid-section slopes
+            const midGeo = new THREE.CylinderGeometry(3.2, 5.9, 7.5, 72, 4, false);
+            const midPos = midGeo.attributes.position;
+            for (let i = 0; i < midPos.count; i++) {
+                midPos.setX(i, midPos.getX(i) + (Math.random() - 0.5) * 0.6);
+                midPos.setZ(i, midPos.getZ(i) + (Math.random() - 0.5) * 0.6);
+            }
+            midGeo.computeVertexNormals();
+            const midMat = new THREE.MeshLambertMaterial({ color: 0x1a1714, flatShading: true });
+            const midMesh = new THREE.Mesh(midGeo, midMat);
+            midMesh.position.y = 13.75;
+            volcanoGroup.add(midMesh);
+
+            // Upper cone
+            const topGeo = new THREE.CylinderGeometry(2.2, 3.3, 5, 60, 3, false);
+            const topMat = new THREE.MeshLambertMaterial({ color: 0x121010, flatShading: true });
+            const topMesh = new THREE.Mesh(topGeo, topMat);
+            topMesh.position.y = 19.5;
+            volcanoGroup.add(topMesh);
+
+            // Crater rim (torus)
+            const rimGeo = new THREE.TorusGeometry(2.3, 0.55, 12, 48);
+            const rimMat = new THREE.MeshLambertMaterial({ color: 0x0d0b0a, flatShading: true });
+            const rimMesh = new THREE.Mesh(rimGeo, rimMat);
+            rimMesh.rotation.x = Math.PI / 2;
+            rimMesh.position.y = 22.1;
+            volcanoGroup.add(rimMesh);
+
+            // Lava pool (glowing disc)
+            const poolGeo = new THREE.CylinderGeometry(1.9, 2.5, 0.9, 48);
+            const poolMat = new THREE.MeshLambertMaterial({
+                color: 0xff4400,
+                emissive: 0xff2200,
+                emissiveIntensity: 1.4
+            });
+            lavaPoolMesh = new THREE.Mesh(poolGeo, poolMat);
+            lavaPoolMesh.position.y = 22.2;
+            volcanoGroup.add(lavaPoolMesh);
+
+            // ── LAVA RIVERS (flowing down flanks) ─────────────────
+            const riverAngles = [0, Math.PI * 0.65, Math.PI * 1.3, Math.PI * 1.9];
+            riverAngles.forEach((angle, idx) => {
+                const riverGeo = new THREE.CylinderGeometry(0.22 - idx * 0.02, 0.4 - idx * 0.02, 12, 8, 1);
+                const riverMat = new THREE.MeshLambertMaterial({
+                    color: 0xff5500,
+                    emissive: 0xcc2200,
+                    emissiveIntensity: 0.8
+                });
+                const river = new THREE.Mesh(riverGeo, riverMat);
+                const r = 2.8;
+                river.position.set(
+                    Math.sin(angle) * r,
+                    17,
+                    Math.cos(angle) * r
+                );
+                river.rotation.z = (Math.sin(angle) * 0.45);
+                river.rotation.x = (Math.cos(angle) * 0.35);
+                river.visible = false;
+                volcanoGroup.add(river);
+                lavaRivers.push(river);
+            });
+
+            // ── MAIN LAVA SPARKS (eruption fountain) ──────────────
+            const sparkCount = 520;
+            const sparkPos   = new Float32Array(sparkCount * 3);
+            const sparkVel   = new Float32Array(sparkCount * 3);
+            const sparkCol   = new Float32Array(sparkCount * 3);
+            const sparkLife  = new Float32Array(sparkCount);
+            const sparkMaxLife = new Float32Array(sparkCount);
+
+            for (let i = 0; i < sparkCount; i++) {
+                const i3 = i * 3;
+                const angle = Math.random() * Math.PI * 2;
+                const r = Math.random() * 1.5;
+                sparkPos[i3]   = Math.cos(angle) * r;
+                sparkPos[i3+1] = 22 + Math.random() * 2;
+                sparkPos[i3+2] = Math.sin(angle) * r;
+                sparkVel[i3]   = (Math.random() - 0.5) * 1.2;
+                sparkVel[i3+1] = 2.5 + Math.random() * 4.5;
+                sparkVel[i3+2] = (Math.random() - 0.5) * 1.2;
+                sparkCol[i3]   = 1.0;
+                sparkCol[i3+1] = 0.3 + Math.random() * 0.3;
+                sparkCol[i3+2] = 0.0;
+                sparkLife[i]     = Math.random();
+                sparkMaxLife[i]  = 0.6 + Math.random() * 1.4;
+            }
+
+            const sparkGeo = new THREE.BufferGeometry();
+            sparkGeo.setAttribute('position', new THREE.BufferAttribute(sparkPos, 3));
+            sparkGeo.setAttribute('color',    new THREE.BufferAttribute(sparkCol, 3));
+            const sparkMat = new THREE.PointsMaterial({
+                size: 0.32, vertexColors: true,
+                transparent: true, opacity: 0.9,
+                depthWrite: false, blending: THREE.AdditiveBlending
+            });
+            lavaParticles = new THREE.Points(sparkGeo, sparkMat);
+            lavaParticles.userData = { vel: sparkVel, life: sparkLife, maxLife: sparkMaxLife, count: sparkCount };
+            volcanoGroup.add(lavaParticles);
+
+            // ── SMALL EMBERS (hot cinders) ─────────────────────────
+            const emberCount = 200;
+            const embPos = new Float32Array(emberCount * 3);
+            const embVel = new Float32Array(emberCount * 3);
+            const embCol = new Float32Array(emberCount * 3);
+
+            for (let i = 0; i < emberCount; i++) {
+                const i3 = i * 3;
+                embPos[i3]   = (Math.random() - 0.5) * 3;
+                embPos[i3+1] = 21 + Math.random() * 5;
+                embPos[i3+2] = (Math.random() - 0.5) * 3;
+                embVel[i3]   = (Math.random() - 0.5) * 2.5;
+                embVel[i3+1] = 1.0 + Math.random() * 2.8;
+                embVel[i3+2] = (Math.random() - 0.5) * 2.5;
+                embCol[i3]   = 1.0;
+                embCol[i3+1] = 0.6 + Math.random() * 0.3;
+                embCol[i3+2] = 0.1;
+            }
+
+            const embGeo = new THREE.BufferGeometry();
+            embGeo.setAttribute('position', new THREE.BufferAttribute(embPos, 3));
+            embGeo.setAttribute('color',    new THREE.BufferAttribute(embCol, 3));
+            const embMat = new THREE.PointsMaterial({
+                size: 0.13, vertexColors: true,
+                transparent: true, opacity: 0.7,
+                depthWrite: false, blending: THREE.AdditiveBlending
+            });
+            emberParticles = new THREE.Points(embGeo, embMat);
+            emberParticles.userData = { vel: embVel, count: emberCount };
+            volcanoGroup.add(emberParticles);
+
+            // ── SMOKE BILLOWS ──────────────────────────────────────
+            const smokeCount = 90;
+            const smokePos  = new Float32Array(smokeCount * 3);
+            const smokeVel  = new Float32Array(smokeCount * 3);
+            const smokeLife = new Float32Array(smokeCount);
+
+            for (let i = 0; i < smokeCount; i++) {
+                const i3 = i * 3;
+                smokePos[i3]   = (Math.random() - 0.5) * 2.5;
+                smokePos[i3+1] = 22.5 + Math.random() * 4;
+                smokePos[i3+2] = (Math.random() - 0.5) * 2.5;
+                smokeVel[i3]   = (Math.random() - 0.5) * 0.4;
+                smokeVel[i3+1] = 0.3 + Math.random() * 0.9;
+                smokeVel[i3+2] = (Math.random() - 0.5) * 0.4;
+                smokeLife[i]   = Math.random();
+            }
+
+            const smokeGeo = new THREE.BufferGeometry();
+            smokeGeo.setAttribute('position', new THREE.BufferAttribute(smokePos, 3));
+            const smokeMat = new THREE.PointsMaterial({
+                size: 1.8, color: 0x333333,
+                transparent: true, opacity: 0.18,
+                depthWrite: false, blending: THREE.NormalBlending
+            });
+            smokeParticles = new THREE.Points(smokeGeo, smokeMat);
+            smokeParticles.userData = { vel: smokeVel, life: smokeLife, count: smokeCount };
+            volcanoGroup.add(smokeParticles);
+
+            // ── RESIZE + SCROLL ────────────────────────────────────
+            window.addEventListener('resize', () => {
+                volcanoCamera.aspect = window.innerWidth / window.innerHeight;
+                volcanoCamera.updateProjectionMatrix();
+                volcanoRenderer.setSize(window.innerWidth, window.innerHeight);
+            });
+            window.addEventListener('scroll', updateVolcanoOnScroll, { passive: true });
+
+            animateVolcano();
+            updateVolcanoOnScroll();
+        }
+
+        function updateVolcanoOnScroll() {
+            const maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 1);
+            volcanoScrollProgress = Math.min(window.scrollY / maxScroll, 1);
+            const p = volcanoScrollProgress;
+
+            // ── PAGE ACCENT COLOR: green → amber → volcanic red ──
+            const themed = lerpColor3(COLOR_GREEN, COLOR_MID, COLOR_ORANGE, p);
+            const hex = '#' + themed.getHexString();
+            document.documentElement.style.setProperty('--accent-olive', hex);
+
+            // Lava rivers appear progressively as you scroll deeper
+            lavaRivers.forEach((r, idx) => {
+                r.visible = p > (idx + 1) * 0.18;
+                if (r.visible && r.material) {
+                    const c = lerpColor3(COLOR_GREEN, COLOR_MID, COLOR_ORANGE, p);
+                    r.material.emissive.copy(c);
+                    r.material.emissiveIntensity = 0.5 + p * 1.2;
+                }
+            });
+
+            // Lava pool pulses hotter
+            if (lavaPoolMesh) {
+                lavaPoolMesh.material.emissiveIntensity = 1.2 + p * 2.0;
+                const pc = lerpColor3(COLOR_GREEN, new THREE.Color(0xff6600), COLOR_ORANGE, p);
+                lavaPoolMesh.material.emissive.copy(pc);
+            }
+
+            // Spark particles grow and intensify
+            if (lavaParticles && lavaParticles.material) {
+                lavaParticles.material.size    = 0.25 + p * 0.28;
+                lavaParticles.material.opacity = 0.75 + p * 0.25;
+                const ca = lavaParticles.geometry.attributes.color;
+                for (let i = 0; i < ca.count; i++) {
+                    ca.array[i*3]   = 1.0;
+                    ca.array[i*3+1] = 0.2 + p * 0.5;
+                    ca.array[i*3+2] = 0.0;
+                }
+                ca.needsUpdate = true;
+            }
+
+            // Crater glow intensifies
+            if (craterGlow) craterGlow.intensity = 3.5 + p * 5.5;
+        }
+
+        function animateVolcano() {
+            requestAnimationFrame(animateVolcano);
+            if (!volcanoGroup || !volcanoRenderer) return;
+
+            volcanoTime += 0.016;
+            const p = volcanoScrollProgress;
+
+            // Volcano rotation: slow drift + scroll-driven acceleration
+            volcanoGroup.rotation.y = volcanoTime * 0.07 + p * 8.0;
+
+            // Camera: zoom toward crater as you scroll, subtle bob
+            const targetZ = 26 - p * 10;
+            const targetY = 11 + p * 2;
+            volcanoCamera.position.z += (targetZ - volcanoCamera.position.z) * 0.04;
+            volcanoCamera.position.y = targetY + Math.sin(volcanoTime * 0.4) * 0.35;
+            volcanoCamera.lookAt(0, 7 + p * 3, 0);
+
+            // Pulsing lava lights
+            const pulse = Math.sin(volcanoTime * 3.5) * 0.4 + 1.0;
+            if (lavaLight1) lavaLight1.intensity = (2.8 + p * 3.5) * pulse;
+            if (craterGlow) craterGlow.intensity = (3.0 + p * 5.0) * (Math.sin(volcanoTime * 6) * 0.3 + 1.0);
+
+            // Lava pool surface shimmer
+            if (lavaPoolMesh) {
+                lavaPoolMesh.scale.y = 1.0 + Math.sin(volcanoTime * 4.2) * 0.07;
+                lavaPoolMesh.material.emissiveIntensity = (1.0 + p * 2.2) * (0.85 + Math.sin(volcanoTime * 5.5) * 0.15);
+            }
+
+            const intensity = 0.5 + p * 2.8;
+
+            // ── ANIMATE SPARKS ─────────────────────────────────────
+            if (lavaParticles) {
+                const pos  = lavaParticles.geometry.attributes.position.array;
+                const vel  = lavaParticles.userData.vel;
+                const life = lavaParticles.userData.life;
+                const maxL = lavaParticles.userData.maxLife;
+                const cnt  = lavaParticles.userData.count;
+
+                for (let i = 0; i < cnt; i++) {
+                    const i3 = i * 3;
+                    life[i] += 0.016 * intensity;
+
+                    pos[i3]   += vel[i3]   * intensity * 0.6;
+                    pos[i3+1] += vel[i3+1] * intensity;
+                    pos[i3+2] += vel[i3+2] * intensity * 0.6;
+                    vel[i3+1] -= 0.04 * intensity;
+
+                    if (life[i] >= maxL[i] || pos[i3+1] < 20) {
+                        const a = Math.random() * Math.PI * 2;
+                        const r = Math.random() * 1.4;
+                        pos[i3]   = Math.cos(a) * r;
+                        pos[i3+1] = 22 + Math.random() * 1.5;
+                        pos[i3+2] = Math.sin(a) * r;
+                        vel[i3]   = (Math.random() - 0.5) * (1.0 + p * 1.8);
+                        vel[i3+1] = 2.2 + Math.random() * (4.0 + p * 5.0);
+                        vel[i3+2] = (Math.random() - 0.5) * (1.0 + p * 1.8);
+                        life[i]   = 0;
+                        maxL[i]   = 0.5 + Math.random() * 1.2;
+                    }
+                }
+                lavaParticles.geometry.attributes.position.needsUpdate = true;
+            }
+
+            // ── ANIMATE EMBERS ─────────────────────────────────────
+            if (emberParticles) {
+                const pos = emberParticles.geometry.attributes.position.array;
+                const vel = emberParticles.userData.vel;
+                const cnt = emberParticles.userData.count;
+
+                for (let i = 0; i < cnt; i++) {
+                    const i3 = i * 3;
+                    pos[i3]   += vel[i3]   * 0.3 * intensity;
+                    pos[i3+1] += vel[i3+1] * 0.5 * intensity;
+                    pos[i3+2] += vel[i3+2] * 0.3 * intensity;
+                    vel[i3]   *= 0.98;
+                    vel[i3+1] -= 0.012 * intensity;
+
+                    if (pos[i3+1] < 20 || Math.abs(pos[i3]) > 12 || Math.abs(pos[i3+2]) > 12) {
+                        const a = Math.random() * Math.PI * 2;
+                        const r = Math.random() * 1.2;
+                        pos[i3]   = Math.cos(a) * r;
+                        pos[i3+1] = 22 + Math.random() * 3;
+                        pos[i3+2] = Math.sin(a) * r;
+                        vel[i3]   = (Math.random() - 0.5) * (2.0 + p * 2.0);
+                        vel[i3+1] = 0.8 + Math.random() * (2.5 + p * 2.0);
+                        vel[i3+2] = (Math.random() - 0.5) * (2.0 + p * 2.0);
+                    }
+                }
+                emberParticles.geometry.attributes.position.needsUpdate = true;
+                emberParticles.material.opacity = 0.5 + p * 0.4;
+            }
+
+            // ── ANIMATE SMOKE ──────────────────────────────────────
+            if (smokeParticles) {
+                const pos  = smokeParticles.geometry.attributes.position.array;
+                const vel  = smokeParticles.userData.vel;
+                const life = smokeParticles.userData.life;
+                const cnt  = smokeParticles.userData.count;
+
+                for (let i = 0; i < cnt; i++) {
+                    const i3 = i * 3;
+                    life[i] += 0.007;
+                    pos[i3]   += vel[i3]   * 0.2 + Math.sin(volcanoTime + i) * 0.015;
+                    pos[i3+1] += vel[i3+1] * 0.4;
+                    pos[i3+2] += vel[i3+2] * 0.2;
+
+                    if (life[i] > 1.0 || pos[i3+1] > 40) {
+                        pos[i3]   = (Math.random() - 0.5) * 2;
+                        pos[i3+1] = 22.5 + Math.random() * 2;
+                        pos[i3+2] = (Math.random() - 0.5) * 2;
+                        vel[i3]   = (Math.random() - 0.5) * 0.5;
+                        vel[i3+1] = 0.25 + Math.random() * 0.7;
+                        vel[i3+2] = (Math.random() - 0.5) * 0.5;
+                        life[i]   = 0;
+                    }
+                }
+                smokeParticles.geometry.attributes.position.needsUpdate = true;
+                smokeParticles.material.opacity = 0.12 + p * 0.2;
+                smokeParticles.material.size    = 1.6 + p * 1.8;
+            }
+
+            volcanoRenderer.render(volcanoScene, volcanoCamera);
+        }
+    </script>
+</body>
+</html>
