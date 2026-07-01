@@ -6,7 +6,14 @@
     <title>Kevan Bartz | Entrepreneur • Inventor • Futurist</title>
     <meta name="description" content="Kevan Bartz — Scrappy entrepreneur, inventor, investor, and futurist based in New York City. Exited Belmont Knight Associates for $25M. Founder of Lite Garden Inc. and NextGen Business Services (successful exits). Launched Lite Garden Capital and raised $174M for private equity acquisitions. IP in sports fantasy &amp; gaming. Green energy: wave generation &amp; pipeline generators.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script>
+    (function() {
+        var s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js';
+        s.onload = function() { window._threeReady = true; if (window._domReady) initVolcano(); };
+        document.head.appendChild(s);
+    })();
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
@@ -88,6 +95,15 @@
 
         .stat-number {
             font-variant-numeric: tabular-nums;
+        }
+
+        #volcano-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
         }
 
         .hero-bg {
@@ -734,15 +750,21 @@
             setupSmoothScroll();
             setupActiveNav();
             setupKeyboardNav();
-            
-            // Initialize the 3D Volcano background
-            initVolcano();
-            
-            // Easter egg: Konami-ish for fun (optional, light)
             console.log('%c[Kevan Bartz] Personal brand site initialized. Free thinker mode: active.', 'color:#3f3f46');
         }
-        
-        window.onload = init;
+
+        // Fire DOM-ready init immediately
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                init();
+                window._domReady = true;
+                if (window._threeReady) initVolcano();
+            });
+        } else {
+            init();
+            window._domReady = true;
+            if (window._threeReady) initVolcano();
+        }
 
         // ============================================
         // 3D VOLCANO BACKGROUND - Cinematic Scroll Experience v2
