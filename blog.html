@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing | Kevan Bartz</title>
+    <meta name="description" content="Essays and ideas from Kevan Bartz — entrepreneur, inventor, and investor based in New York City. Topics include AI, entrepreneurship, green energy, and the future of business.">
+    <meta name="author" content="Kevan Bartz">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://kevanbartz.com/blog.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Writing | Kevan Bartz">
+    <meta property="og:description" content="Essays and ideas from Kevan Bartz on AI, entrepreneurship, and the future of business.">
+    <meta property="og:url" content="https://kevanbartz.com/blog.html">
+    <meta property="og:site_name" content="Kevan Bartz">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: #0a0a0a; color: #e4e4e7; margin: 0; }
+        .font-display { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.025em; }
+
+        /* ── NAV ── */
+        .top-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(10,10,10,0.90); backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .nav-link { transition: color 0.2s; }
+        .nav-link:hover { color: #fff; }
+
+        /* ── HERO HEADER ── */
+        .page-header {
+            padding: 7rem 1.5rem 4rem;
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        /* ── TAG PILL ── */
+        .tag {
+            display: inline-block; padding: 0.2rem 0.7rem; border-radius: 9999px;
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+            background: rgba(85,107,47,0.12); border: 1px solid rgba(85,107,47,0.3); color: #7a9a45;
+            cursor: pointer; transition: background 0.2s, color 0.2s;
+        }
+        .tag:hover, .tag.active { background: rgba(85,107,47,0.28); color: #a8c870; }
+
+        /* ── FEATURED CARD ── */
+        .card-featured {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+            background: #111; border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1.75rem; overflow: hidden;
+            transition: border-color 0.25s, transform 0.25s;
+            text-decoration: none; color: inherit;
+        }
+        .card-featured:hover { border-color: rgba(85,107,47,0.45); transform: translateY(-2px); }
+        @media (max-width: 768px) { .card-featured { grid-template-columns: 1fr; } }
+
+        .card-featured .card-img {
+            height: 380px; object-fit: cover; width: 100%; display: block;
+        }
+        @media (max-width: 768px) { .card-featured .card-img { height: 240px; } }
+
+        .card-featured .card-body {
+            padding: 2.5rem; display: flex; flex-direction: column; justify-content: center;
+        }
+
+        /* ── STANDARD CARD ── */
+        .card {
+            background: #111; border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1.5rem; overflow: hidden;
+            transition: border-color 0.25s, transform 0.25s;
+            text-decoration: none; color: inherit;
+            display: flex; flex-direction: column;
+        }
+        .card:hover { border-color: rgba(85,107,47,0.45); transform: translateY(-2px); }
+
+        .card .card-img {
+            height: 220px; object-fit: cover; width: 100%; display: block;
+            background: #1a1a1a;
+        }
+        .card .card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+
+        /* ── META ── */
+        .post-meta {
+            font-size: 0.72rem; color: #71717a; letter-spacing: 0.04em;
+        }
+        .post-meta span { color: #556b2f; font-weight: 600; }
+
+        /* ── READ MORE ── */
+        .read-more {
+            font-size: 0.8rem; color: #556b2f; font-weight: 600;
+            letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 0.4rem;
+            transition: color 0.2s; margin-top: auto; padding-top: 1rem;
+        }
+        .card:hover .read-more, .card-featured:hover .read-more { color: #f59e0b; }
+
+        /* ── DIVIDER ── */
+        .section-rule { border: none; border-top: 1px solid rgba(255,255,255,0.07); }
+
+        /* ── EMPTY STATE ── */
+        .empty-card {
+            border: 1px dashed rgba(255,255,255,0.1); border-radius: 1.5rem;
+            padding: 3rem; text-align: center; color: #3f3f46;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top-nav">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="/" class="font-display text-white text-lg tracking-tight hover:text-[#556b2f] transition-colors">Kevan Bartz</a>
+        <div class="flex items-center gap-x-5 text-sm text-zinc-400">
+            <a href="/#ventures"    class="nav-link hidden md:inline">Ventures</a>
+            <a href="/#innovations" class="nav-link hidden md:inline">Innovations</a>
+            <a href="/#timeline"    class="nav-link hidden md:inline">Mission Log</a>
+            <a href="/blog.html"    class="nav-link text-white font-semibold hidden md:inline">Blog</a>
+            <a href="/#contact"     class="px-4 py-1.5 border border-zinc-700 rounded-full hover:border-[#556b2f]/60 hover:text-white transition-all text-xs">Connect</a>
+        </div>
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+    <div class="text-[#556b2f] text-xs font-semibold tracking-[0.2em] uppercase mb-4">Essays &amp; Ideas</div>
+    <h1 class="font-display text-white tracking-tighter mb-4" style="font-size:clamp(2.5rem,6vw,4.5rem); line-height:1.05;">Writing</h1>
+    <p class="text-zinc-400 text-lg max-w-xl leading-relaxed">
+        Perspectives on AI, entrepreneurship, green energy, and the mechanics of building companies that last. From the desk of Kevan Bartz, New York City.
+    </p>
+
+    <!-- FILTER TAGS -->
+    <div class="flex flex-wrap gap-2 mt-6">
+        <span class="tag active" onclick="filterPosts('all')">All</span>
+        <span class="tag" onclick="filterPosts('ai')">AI &amp; Technology</span>
+        <span class="tag" onclick="filterPosts('entrepreneurship')">Entrepreneurship</span>
+        <span class="tag" onclick="filterPosts('green-energy')">Green Energy</span>
+        <span class="tag" onclick="filterPosts('markets')">Markets &amp; Finance</span>
+    </div>
+</div>
+
+<hr class="section-rule max-w-5xl mx-auto" style="margin-left:auto;margin-right:auto;max-width:1024px;margin-bottom:0;">
+
+<!-- ══════════════════════════════════════════════
+     POSTS GRID
+     To add a new post: copy one <a class="card"> block,
+     update the href, img src, tags, title, excerpt, date.
+     ══════════════════════════════════════════════ -->
+<main class="max-w-5xl mx-auto px-6 py-12">
+
+    <!-- ── FEATURED POST ─────────────────────────────────────── -->
+    <div class="mb-4">
+        <div class="text-xs text-zinc-500 font-semibold tracking-[0.15em] uppercase mb-4">Featured</div>
+    </div>
+
+    <a href="/blog-solo-multiplier.html"
+       class="card-featured mb-12 block"
+       data-tags="ai entrepreneurship markets">
+        <img class="card-img"
+             src="https://static.vecteezy.com/system/resources/previews/065/613/585/large_2x/computer-screen-shows-neural-network-data-glowing-points-connect-with-lines-dark-background-program-code-displayed-information-technology-concept-artificial-intelligence-photo.jpeg"
+             alt="AI neural network visualization">
+        <div class="card-body">
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="tag" style="pointer-events:none;">AI &amp; Technology</span>
+                <span class="tag" style="pointer-events:none;">Entrepreneurship</span>
+                <span class="tag" style="pointer-events:none;">Future of Work</span>
+            </div>
+            <div class="post-meta mb-3">
+                <span>July 2, 2026</span> &nbsp;•&nbsp; 12 min read
+            </div>
+            <h2 class="font-display text-white text-3xl tracking-tight leading-tight mb-4">
+                The Solo Multiplier
+            </h2>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-2">
+                How mastering AI lets one person replace what used to require an entire team — lessons from the debt markets, building and exiting companies, and the transformation of consumer credit collection.
+            </p>
+            <div class="read-more">
+                Read essay <i class="fa-solid fa-arrow-right text-xs"></i>
+            </div>
+        </div>
+    </a>
+
+    <hr class="section-rule mb-12">
+
+    <!-- ── ALL POSTS GRID ─────────────────────────────────────── -->
+    <div class="mb-6">
+        <div class="text-xs text-zinc-500 font-semibold tracking-[0.15em] uppercase">All Posts</div>
+    </div>
+
+    <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- POST CARD 1 — The Solo Multiplier -->
+        <a href="/blog-solo-multiplier.html"
+           class="card"
+           data-tags="ai entrepreneurship markets">
+            <img class="card-img"
+                 src="https://static.vecteezy.com/system/resources/previews/065/613/585/large_2x/computer-screen-shows-neural-network-data-glowing-points-connect-with-lines-dark-background-program-code-displayed-information-technology-concept-artificial-intelligence-photo.jpeg"
+                 alt="The Solo Multiplier">
+            <div class="card-body">
+                <div class="flex flex-wrap gap-1 mb-3">
+                    <span class="tag" style="pointer-events:none; font-size:0.6rem; padding:0.15rem 0.55rem;">AI &amp; Tech</span>
+                    <span class="tag" style="pointer-events:none; font-size:0.6rem; padding:0.15rem 0.55rem;">Entrepreneurship</span>
+                </div>
+                <div class="post-meta mb-2"><span>July 2, 2026</span> &nbsp;•&nbsp; 12 min read</div>
+                <h3 class="font-display text-white text-xl tracking-tight leading-snug mb-2">The Solo Multiplier</h3>
+                <p class="text-zinc-400 text-sm leading-relaxed" style="flex:1;">
+                    How mastering AI lets one person replace what used to require an entire team — lessons from the debt markets and building companies.
+                </p>
+                <div class="read-more">Read <i class="fa-solid fa-arrow-right text-xs"></i></div>
+            </div>
+        </a>
+
+        <!-- ══════════════════════════════════════════
+             ADD NEW POST CARDS BELOW THIS COMMENT.
+             Copy the block above, update:
+               • href="/your-new-post.html"
+               • data-tags="ai" (space-separated, pick from: ai, entrepreneurship, green-energy, markets)
+               • img src
+               • date, read time
+               • title
+               • excerpt (2–3 sentences)
+             ══════════════════════════════════════════ -->
+
+        <!-- PLACEHOLDER — remove once you have a 2nd post -->
+        <div class="empty-card flex flex-col items-center justify-center gap-3">
+            <i class="fa-solid fa-pen-nib text-2xl" style="color:#2a2a2a;"></i>
+            <div class="text-sm" style="color:#3f3f46;">Next post coming soon</div>
+        </div>
+
+        <!-- PLACEHOLDER 2 — remove once you have a 3rd post -->
+        <div class="empty-card flex-col items-center justify-center gap-3 hidden lg:flex">
+            <i class="fa-solid fa-pen-nib text-2xl" style="color:#2a2a2a;"></i>
+            <div class="text-sm" style="color:#3f3f46;">Next post coming soon</div>
+        </div>
+
+    </div><!-- /posts-grid -->
+
+</main>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid rgba(255,255,255,0.08); padding:2rem 1.5rem; margin-top:4rem;">
+    <div style="max-width:1024px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; font-size:0.75rem; color:#52525b;">
+        <div>© 2026 Kevan Bartz. All rights reserved.</div>
+        <a href="/" style="color:#52525b; text-decoration:none;">← kevanbartz.com</a>
+    </div>
+</footer>
+
+<script>
+// Tag filter
+function filterPosts(tag) {
+    // Update active tag styling
+    document.querySelectorAll('.page-header .tag').forEach(function(t) {
+        t.classList.remove('active');
+        if (t.getAttribute('onclick') === "filterPosts('" + tag + "')") {
+            t.classList.add('active');
+        }
+    });
+
+    // Show/hide cards
+    var cards = document.querySelectorAll('#posts-grid .card');
+    cards.forEach(function(card) {
+        var tags = card.getAttribute('data-tags') || '';
+        if (tag === 'all' || tags.includes(tag)) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
+
+</body>
+</html>
