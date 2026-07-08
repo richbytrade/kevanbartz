@@ -113,15 +113,57 @@
 <nav class="top-nav">
     <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
         <a href="/" class="font-display text-white text-lg tracking-tight hover:text-[#556b2f] transition-colors">Kevan Bartz</a>
-        <div class="flex items-center gap-x-5 text-sm text-zinc-400">
-            <a href="/#ventures"    class="nav-link hidden md:inline">Ventures</a>
-            <a href="/#innovations" class="nav-link hidden md:inline">Innovations</a>
-            <a href="/#timeline"    class="nav-link hidden md:inline">Mission Log</a>
-            <a href="/blog.html"    class="nav-link text-white font-semibold hidden md:inline">Blog</a>
-            <a href="/#contact"     class="px-4 py-1.5 border border-zinc-700 rounded-full hover:border-[#556b2f]/60 hover:text-white transition-all text-xs">Connect</a>
+        <div class="flex items-center gap-x-4">
+            <!-- Desktop links -->
+            <div class="hidden md:flex items-center gap-x-5 text-sm text-zinc-400">
+                <a href="/#ventures"    class="nav-link hover:text-white transition-colors">Ventures</a>
+                <a href="/#innovations" class="nav-link hover:text-white transition-colors">Innovations</a>
+                <a href="/#timeline"    class="nav-link hover:text-white transition-colors">Mission Log</a>
+                <a href="/blog.html"    class="nav-link text-white font-semibold">Blog</a>
+                <a href="/#contact"     class="px-4 py-1.5 border border-zinc-700 rounded-full hover:border-[#556b2f]/60 hover:text-white transition-all text-xs">Connect</a>
+            </div>
+            <!-- Hamburger (mobile only) -->
+            <button id="mobile-menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center text-zinc-400 hover:text-white">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
         </div>
     </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-zinc-950 pt-20" style="display:none;">
+    <div class="px-6 py-8 flex flex-col gap-y-6 text-lg font-medium">
+        <a href="/" class="mobile-link py-2 text-zinc-300">Home</a>
+        <a href="/#ventures" class="mobile-link py-2 text-zinc-300">Ventures</a>
+        <a href="/#innovations" class="mobile-link py-2 text-zinc-300">Innovations</a>
+        <a href="/#timeline" class="mobile-link py-2 text-zinc-300">Mission Log</a>
+        <a href="/blog.html" class="mobile-link py-2 text-white font-semibold">Blog</a>
+        <div class="pt-4">
+            <a href="/#contact" class="mobile-link inline-flex items-center justify-center w-full px-6 py-3.5 rounded-2xl bg-white text-zinc-950 font-semibold">Connect</a>
+        </div>
+    </div>
+</div>
+<script>
+(function(){
+    var btn = document.getElementById('mobile-menu-btn');
+    var menu = document.getElementById('mobile-menu');
+    var open = false;
+    if(btn && menu){
+        btn.addEventListener('click', function(){
+            open = !open;
+            menu.style.display = open ? 'block' : 'none';
+            btn.innerHTML = open ? '<i class="fa-solid fa-xmark text-xl"></i>' : '<i class="fa-solid fa-bars text-xl"></i>';
+        });
+        menu.querySelectorAll('a').forEach(function(a){
+            a.addEventListener('click', function(){
+                open = false;
+                menu.style.display = 'none';
+                btn.innerHTML = '<i class="fa-solid fa-bars text-xl"></i>';
+            });
+        });
+    }
+})();
+</script>
 
 <!-- PAGE HEADER -->
 <div class="page-header">
