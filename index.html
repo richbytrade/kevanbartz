@@ -715,27 +715,59 @@
                 <h2 class="font-display text-6xl tracking-tighter mb-4">Direct line.</h2>
                 <p class="text-xl text-zinc-400 mb-10">For partnerships, investments, speaking engagements, press, or meaningful conversations.</p>
 
-                <div class="space-y-4">
-                    <a href="mailto:inquiries@kevanbartz.com" 
-                       class="group flex items-center justify-between px-8 py-5 bg-zinc-950 hover:bg-zinc-800 border border-zinc-700 hover:border-[#556b2f]/50 rounded-3xl transition-all">
+                <!-- CONTACT FORM -->
+                <form id="contact-form" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-zinc-400 text-xs tracking-[2px] font-medium mb-2">YOUR NAME</label>
+                            <input type="text" name="from_name" required placeholder="First &amp; Last Name"
+                                class="w-full bg-zinc-950 border border-zinc-700 rounded-2xl px-5 py-3.5 text-white placeholder-zinc-600 text-sm focus:outline-none focus:border-[#556b2f] transition-colors" />
+                        </div>
+                        <div>
+                            <label class="block text-zinc-400 text-xs tracking-[2px] font-medium mb-2">YOUR EMAIL</label>
+                            <input type="email" name="reply_to" required placeholder="you@email.com"
+                                class="w-full bg-zinc-950 border border-zinc-700 rounded-2xl px-5 py-3.5 text-white placeholder-zinc-600 text-sm focus:outline-none focus:border-[#556b2f] transition-colors" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-zinc-400 text-xs tracking-[2px] font-medium mb-2">MESSAGE</label>
+                        <textarea name="message" required rows="5" placeholder="Partnerships, investments, speaking engagements, or just a meaningful conversation..."
+                            class="w-full bg-zinc-950 border border-zinc-700 rounded-2xl px-5 py-3.5 text-white placeholder-zinc-600 text-sm focus:outline-none focus:border-[#556b2f] transition-colors resize-none"></textarea>
+                    </div>
+                    <button type="submit" id="contact-submit"
+                        class="w-full flex items-center justify-center gap-3 px-8 py-4 bg-[#556b2f] hover:bg-[#6a8a3a] text-white font-semibold rounded-2xl transition-all text-sm tracking-wide">
+                        <span id="submit-text">Send Message</span>
+                        <i id="submit-icon" class="fa-solid fa-paper-plane"></i>
+                    </button>
+                    <div id="form-success" class="hidden text-center py-4 text-[#8fad4b] font-medium text-sm">
+                        <i class="fa-solid fa-circle-check mr-2"></i>Message sent — Kevan will be in touch soon.
+                    </div>
+                    <div id="form-error" class="hidden text-center py-4 text-red-400 font-medium text-sm">
+                        <i class="fa-solid fa-circle-exclamation mr-2"></i>Something went wrong. Please email directly at inquiries@kevanbartz.com
+                    </div>
+                </form>
+
+                <!-- Direct links below form -->
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                    <a href="mailto:inquiries@kevanbartz.com"
+                       class="group flex items-center gap-3 px-6 py-3.5 bg-zinc-950 hover:bg-zinc-800 border border-zinc-700 hover:border-[#556b2f]/50 rounded-2xl transition-all flex-1">
+                        <i class="fa-solid fa-envelope text-lg text-zinc-600 group-hover:text-[#556b2f] transition-colors"></i>
                         <div>
                             <div class="text-[#556b2f] text-xs tracking-[2px] font-medium">EMAIL</div>
-                            <div class="font-medium text-lg group-hover:text-[#556b2f] transition-colors">inquiries@kevanbartz.com</div>
+                            <div class="text-sm text-zinc-300 group-hover:text-white transition-colors">inquiries@kevanbartz.com</div>
                         </div>
-                        <i class="fa-solid fa-envelope text-2xl text-zinc-600 group-hover:text-[#556b2f] transition-colors"></i>
                     </a>
-
                     <a href="https://www.linkedin.com/in/kevan-bartz-2291b010b" target="_blank"
-                       class="group flex items-center justify-between px-8 py-5 bg-zinc-950 hover:bg-zinc-800 border border-zinc-700 hover:border-[#556b2f]/50 rounded-3xl transition-all">
+                       class="group flex items-center gap-3 px-6 py-3.5 bg-zinc-950 hover:bg-zinc-800 border border-zinc-700 hover:border-[#556b2f]/50 rounded-2xl transition-all flex-1">
+                        <i class="fa-brands fa-linkedin text-lg text-zinc-600 group-hover:text-[#556b2f] transition-colors"></i>
                         <div>
                             <div class="text-[#556b2f] text-xs tracking-[2px] font-medium">LINKEDIN</div>
-                            <div class="font-medium text-lg group-hover:text-[#556b2f] transition-colors">Connect professionally</div>
+                            <div class="text-sm text-zinc-300 group-hover:text-white transition-colors">Connect professionally</div>
                         </div>
-                        <i class="fa-brands fa-linkedin text-2xl text-zinc-600 group-hover:text-[#556b2f] transition-colors"></i>
                     </a>
                 </div>
 
-                <div class="mt-10 text-xs text-zinc-500">
+                <div class="mt-6 text-xs text-zinc-500">
                     Based in New York City • Open to global opportunities<br>
                     This site and brand are managed directly by Kevan Bartz.
                 </div>
@@ -869,6 +901,51 @@
             window._domReady = true;
         }
 
+    </script>
+
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        // ── EmailJS Configuration ──────────────────────────────────────────
+        // Replace the three placeholder values below with your EmailJS credentials
+        var EMAILJS_PUBLIC_KEY  = 'ofNEmM5jLc4TAp99a';    // Account → API Keys
+        var EMAILJS_SERVICE_ID  = 'service_z5vowot';    // Email Services → your Gmail service
+        var EMAILJS_TEMPLATE_ID = 'template_l9ozs06';   // Email Templates → your template
+
+        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var btn      = document.getElementById('contact-submit');
+            var btnText  = document.getElementById('submit-text');
+            var btnIcon  = document.getElementById('submit-icon');
+            var success  = document.getElementById('form-success');
+            var error    = document.getElementById('form-error');
+
+            // Loading state
+            btn.disabled = true;
+            btnText.textContent = 'Sending…';
+            btnIcon.className = 'fa-solid fa-spinner fa-spin';
+            success.classList.add('hidden');
+            error.classList.add('hidden');
+
+            emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, this)
+                .then(function() {
+                    btnText.textContent = 'Message Sent';
+                    btnIcon.className = 'fa-solid fa-circle-check';
+                    btn.classList.remove('bg-[#556b2f]', 'hover:bg-[#6a8a3a]');
+                    btn.classList.add('bg-zinc-700');
+                    success.classList.remove('hidden');
+                    document.getElementById('contact-form').reset();
+                }, function(err) {
+                    console.error('EmailJS error:', err);
+                    btn.disabled = false;
+                    btnText.textContent = 'Send Message';
+                    btnIcon.className = 'fa-solid fa-paper-plane';
+                    error.classList.remove('hidden');
+                });
+        });
     </script>
 </body>
 </html>
