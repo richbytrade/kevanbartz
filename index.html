@@ -318,7 +318,7 @@
 <body class="bg-zinc-950 text-zinc-200 antialiased">
 
 <!-- ── LITE GARDEN CAPITAL ANNOUNCEMENT BANNER ─────────────────────────── -->
-<div id="lgc-banner" style="display:block;" class="relative z-[60] bg-zinc-900 border-b border-zinc-800">
+<div id="lgc-banner" style="display:block;" class="fixed top-0 left-0 right-0 z-[60] bg-zinc-900 border-b border-zinc-800">
     <div class="max-w-5xl mx-auto px-6 py-3 flex items-start md:items-center justify-between gap-4">
         <div class="flex items-start md:items-center gap-3 flex-1">
             <!-- Dot indicator -->
@@ -333,7 +333,7 @@
                 </button>
             </p>
         </div>
-        <button onclick="document.getElementById('lgc-banner').style.display='none'"
+        <button onclick="document.getElementById('lgc-banner').style.display='none'; document.getElementById('main-nav').style.top='0'"
             class="flex-shrink-0 text-zinc-600 hover:text-zinc-300 transition-colors p-1 -mr-1 mt-0.5 md:mt-0">
             <i class="fa-solid fa-xmark text-sm"></i>
         </button>
@@ -411,7 +411,7 @@
 </div>
 <!-- ── END ANNOUNCEMENT ───────────────────────────────────────────────────── -->
     <!-- NAV -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/95 backdrop-blur-lg border-b border-zinc-800">
+    <nav id="main-nav" class="fixed left-0 right-0 z-50 bg-zinc-950/95 backdrop-blur-lg border-b border-zinc-800" style="top:0">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
@@ -1164,5 +1164,29 @@
                 });
         });
     </script>
+
+<script>
+(function() {
+    function positionNav() {
+        var banner = document.getElementById('lgc-banner');
+        var nav = document.getElementById('main-nav');
+        if (!nav) return;
+        var bannerH = (banner && banner.style.display !== 'none') ? banner.offsetHeight : 0;
+        nav.style.top = bannerH + 'px';
+    }
+    // Run on load and resize
+    window.addEventListener('DOMContentLoaded', positionNav);
+    window.addEventListener('resize', positionNav);
+    // Also patch the dismiss button
+    var origDismiss = document.getElementById ? function() {
+        setTimeout(positionNav, 50);
+    } : null;
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.closest && e.target.closest('[onclick*="lgc-banner"]')) {
+            setTimeout(positionNav, 50);
+        }
+    });
+})();
+</script>
 </body>
 </html>
