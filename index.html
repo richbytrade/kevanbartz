@@ -319,24 +319,23 @@
 
 <!-- ── LITE GARDEN CAPITAL ANNOUNCEMENT BANNER ─────────────────────────── -->
 <div id="lgc-banner" style="display:block;" class="fixed top-0 left-0 right-0 z-[60] bg-zinc-900 border-b border-zinc-800">
-    <div class="max-w-5xl mx-auto px-6 py-3 flex items-start md:items-center justify-between gap-4">
-        <div class="flex items-start md:items-center gap-3 flex-1">
-            <!-- Dot indicator -->
-            <span class="mt-1 md:mt-0 flex-shrink-0 w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-            <p class="text-xs md:text-sm text-zinc-300 leading-relaxed">
-                <span class="font-semibold text-white">Important Notice — Lite Garden Capital &amp; The Lite Garden Fund</span>
-                <span class="hidden md:inline text-zinc-500 mx-2">·</span>
-                <span class="block md:inline text-zinc-400 mt-0.5 md:mt-0">The fund is temporarily on pause. Invested capital remains protected in the interest of all investors. Undeployed capital is eligible for withdrawal.</span>
-                <button onclick="document.getElementById('lgc-modal').style.display='flex'"
-                    class="ml-2 text-amber-400 hover:text-amber-300 underline underline-offset-2 font-medium whitespace-nowrap transition-colors">
-                    Read full statement →
-                </button>
-            </p>
+    <!-- X button — always top-right, never obscured -->
+    <button onclick="document.getElementById('lgc-banner').style.display='none'; document.getElementById('main-nav').style.top='0'"
+        class="absolute top-2 right-3 z-10 w-7 h-7 flex items-center justify-center rounded-full text-zinc-400 hover:text-white hover:bg-zinc-700 transition-all">
+        <i class="fa-solid fa-xmark text-sm"></i>
+    </button>
+    <div class="max-w-5xl mx-auto px-6 py-3 pr-10">
+        <div class="flex items-center gap-2 mb-0.5">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse flex-shrink-0"></span>
+            <span class="font-semibold text-white text-xs md:text-sm">Important Notice — Lite Garden Capital &amp; The Lite Garden Fund</span>
         </div>
-        <button onclick="document.getElementById('lgc-banner').style.display='none'; document.getElementById('main-nav').style.top='0'"
-            class="flex-shrink-0 text-zinc-600 hover:text-zinc-300 transition-colors p-1 -mr-1 mt-0.5 md:mt-0">
-            <i class="fa-solid fa-xmark text-sm"></i>
-        </button>
+        <p class="text-xs text-zinc-400 leading-relaxed pl-4">
+            The fund is temporarily on pause. Invested capital remains protected; undeployed capital is eligible for withdrawal.
+            <button onclick="document.getElementById('lgc-modal').style.display='flex'"
+                class="ml-1 text-amber-400 hover:text-amber-300 underline underline-offset-2 font-medium transition-colors">
+                Read full statement →
+            </button>
+        </p>
     </div>
 </div>
 
