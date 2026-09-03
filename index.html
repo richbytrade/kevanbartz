@@ -316,6 +316,100 @@
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-200 antialiased">
+
+<!-- ── LITE GARDEN CAPITAL ANNOUNCEMENT BANNER ─────────────────────────── -->
+<div id="lgc-banner" style="display:block;" class="relative z-[60] bg-zinc-900 border-b border-zinc-800">
+    <div class="max-w-5xl mx-auto px-6 py-3 flex items-start md:items-center justify-between gap-4">
+        <div class="flex items-start md:items-center gap-3 flex-1">
+            <!-- Dot indicator -->
+            <span class="mt-1 md:mt-0 flex-shrink-0 w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            <p class="text-xs md:text-sm text-zinc-300 leading-relaxed">
+                <span class="font-semibold text-white">Important Notice — Lite Garden Capital &amp; The Lite Garden Fund</span>
+                <span class="hidden md:inline text-zinc-500 mx-2">·</span>
+                <span class="block md:inline text-zinc-400 mt-0.5 md:mt-0">The fund is temporarily on pause. Invested capital remains protected in the interest of all investors. Undeployed capital is eligible for withdrawal.</span>
+                <button onclick="document.getElementById('lgc-modal').style.display='flex'"
+                    class="ml-2 text-amber-400 hover:text-amber-300 underline underline-offset-2 font-medium whitespace-nowrap transition-colors">
+                    Read full statement →
+                </button>
+            </p>
+        </div>
+        <button onclick="document.getElementById('lgc-banner').style.display='none'"
+            class="flex-shrink-0 text-zinc-600 hover:text-zinc-300 transition-colors p-1 -mr-1 mt-0.5 md:mt-0">
+            <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+    </div>
+</div>
+
+<!-- ── FULL STATEMENT MODAL ──────────────────────────────────────────────── -->
+<div id="lgc-modal" style="display:none;"
+    class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
+    onclick="if(event.target===this)this.style.display='none'">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-zinc-950/90 backdrop-blur-sm"></div>
+    <!-- Card -->
+    <div class="relative z-10 bg-zinc-900 border border-zinc-700 rounded-3xl max-w-2xl w-full p-8 md:p-10 shadow-2xl">
+        <!-- Header -->
+        <div class="flex items-start justify-between mb-6">
+            <div>
+                <div class="text-amber-400 text-xs tracking-[0.2em] font-semibold uppercase mb-2">Official Statement</div>
+                <h2 class="font-display text-2xl md:text-3xl font-bold text-white leading-tight">
+                    Lite Garden Capital &amp;<br class="hidden md:block" /> The Lite Garden Fund
+                </h2>
+            </div>
+            <button onclick="document.getElementById('lgc-modal').style.display='none'"
+                class="text-zinc-600 hover:text-zinc-300 transition-colors p-1 -mr-1 -mt-1 flex-shrink-0">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-zinc-800 mb-6"></div>
+
+        <!-- Body -->
+        <div class="space-y-4 text-sm md:text-base text-zinc-400 leading-relaxed">
+            <p>To our valued investors and partners,</p>
+            <p>
+                It is with deep sincerity and the utmost respect for each of you that we share this important update regarding
+                Lite Garden Capital and The Lite Garden Fund.
+            </p>
+            <p>
+                Due to personal circumstances, we have made the difficult decision to place the fund in a temporary pause, effective immediately.
+                This was not a decision made lightly, and we want to be fully transparent with every individual who placed their trust in us.
+            </p>
+            <p>
+                <span class="text-white font-medium">Regarding your capital:</span> All invested capital will continue to be managed with the best interests
+                of our investors as the foremost priority. For those with <span class="text-white font-medium">undeployed capital</span>, full withdrawal options
+                are available and will be processed promptly upon request. Any <span class="text-white font-medium">realized gains</span> will be distributed
+                in a timely manner, and all <span class="text-white font-medium">unrealized gains</span> will remain accessible through the investor portal.
+            </p>
+            <p>
+                While the future timeline of operations remains uncertain, we remain hopeful that circumstances will allow us to resume
+                at some point. If and when that time comes, we will communicate directly and transparently with each of you.
+            </p>
+            <p>
+                To every investor and partner who believed in this vision — though our time together was shorter than any of us anticipated,
+                the relationships built and the trust extended to us were not taken for granted. It was a genuine privilege to work alongside
+                each of you, and we are sincerely grateful.
+            </p>
+            <p>We apologize for any inconvenience this may cause and remain committed to ensuring a smooth and respectful transition for all parties involved.</p>
+            <p class="text-zinc-300">With respect and gratitude,</p>
+            <p class="text-white font-semibold">Kevan Bartz<br>
+                <span class="text-zinc-500 font-normal text-sm">Founder, Lite Garden Capital</span>
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-8 pt-6 border-t border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <p class="text-zinc-600 text-xs">For withdrawal requests or investor inquiries, please contact us directly.</p>
+            <a href="/#contact"
+                onclick="document.getElementById('lgc-modal').style.display='none'"
+                class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-zinc-950 font-semibold text-sm transition-colors">
+                Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- ── END ANNOUNCEMENT ───────────────────────────────────────────────────── -->
     <!-- NAV -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/95 backdrop-blur-lg border-b border-zinc-800">
         <div class="max-w-7xl mx-auto px-6">
