@@ -195,6 +195,124 @@
         .minimalist {
             font-feature-settings: "ss02";
         }
+
+        /* ── MINDSET BENTO ─────────────────────────────────────── */
+        .mindset-bento {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 220px;
+            gap: 16px;
+        }
+        @media (max-width: 900px) {
+            .mindset-bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto; }
+            .mindset-card--wide { grid-column: span 2 !important; }
+            .mindset-card--tall { grid-row: span 1 !important; }
+        }
+        @media (max-width: 540px) {
+            .mindset-bento { grid-template-columns: 1fr; }
+            .mindset-card--wide { grid-column: span 1 !important; }
+        }
+
+        .mindset-card {
+            position: relative;
+            background: #111113;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 24px;
+            padding: 28px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: border-color 0.3s, transform 0.3s;
+            cursor: default;
+        }
+        .mindset-card:hover {
+            border-color: rgba(85,107,47,0.5);
+            transform: translateY(-3px);
+        }
+        .mindset-card--wide { grid-column: span 2; }
+        .mindset-card--tall { grid-row: span 2; }
+
+        .mindset-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: rgba(255,255,255,0.15);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .mindset-icon-wrap {
+            width: 42px; height: 42px;
+            border-radius: 14px;
+            background: rgba(85,107,47,0.12);
+            border: 1px solid rgba(85,107,47,0.25);
+            display: flex; align-items: center; justify-content: center;
+            color: #8fad4b;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .mindset-card:hover .mindset-icon-wrap {
+            background: rgba(85,107,47,0.22);
+            border-color: rgba(85,107,47,0.5);
+        }
+        .mindset-icon-wrap--lg { width: 56px; height: 56px; font-size: 1.5rem; border-radius: 18px; }
+
+        .mindset-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+        .mindset-title--lg { font-size: 1.35rem; }
+
+        .mindset-body {
+            font-size: 0.82rem;
+            color: #71717a;
+            line-height: 1.65;
+            flex: 1;
+        }
+        .mindset-card--wide .mindset-body { max-width: 520px; }
+
+        .mindset-stat {
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .mindset-stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #f59e0b;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+        .mindset-stat-label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #52525b;
+        }
+
+        /* Glow blobs */
+        .mindset-glow {
+            position: absolute;
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0;
+            bottom: -60px; right: -60px;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+        .mindset-card:hover .mindset-glow { opacity: 0.18; }
+        .mindset-glow--amber { background: #f59e0b; }
+        .mindset-glow--green { background: #556b2f; }
+        /* ── END MINDSET BENTO ─────────────────────────────────── */
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-200 antialiased">
@@ -517,76 +635,103 @@
     <!-- MINDSET / ATTRIBUTES -->
     <section id="mindset" class="max-w-5xl mx-auto px-6 pt-16 pb-20">
         <div class="section-header mb-3">04 / THE MINDSET</div>
-        <h2 class="font-display text-6xl tracking-tighter mb-3">Eight principles. One operating system.</h2>
-        <p class="max-w-md text-lg text-zinc-400 mb-10">These attributes aren't labels—they're the lens through which every decision is made.</p>
+        <h2 class="font-display text-6xl tracking-tighter mb-3">Eight principles.<br>One operating system.</h2>
+        <p class="max-w-md text-lg text-zinc-400 mb-12">These attributes aren't labels—they're the lens through which every decision is made.</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            <!-- Attribute Cards -->
-            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
-                <div class="flex items-center gap-x-3 mb-4">
-                    <i class="fa-solid fa-fist-raised text-[#556b2f] text-xl"></i>
-                    <div class="font-semibold tracking-tight">Scrappy Entrepreneur</div>
+        <!-- Bento Grid -->
+        <div class="mindset-bento">
+
+            <!-- Card 1 — WIDE (spans 2 cols) -->
+            <div class="mindset-card mindset-card--wide group">
+                <div class="mindset-number">01</div>
+                <div class="mindset-icon-wrap">
+                    <i class="fa-solid fa-fist-raised"></i>
                 </div>
-                <p class="text-sm text-zinc-400">Resourceful execution. No excuses. Built multiple companies from the ground up with grit, creativity, and relentless focus on outcomes.</p>
+                <h3 class="mindset-title">Scrappy Entrepreneur</h3>
+                <p class="mindset-body">Resourceful execution. No excuses. Built multiple companies from the ground up with grit, creativity, and relentless focus on outcomes.</p>
+                <div class="mindset-glow mindset-glow--amber"></div>
             </div>
 
-            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
-                <div class="flex items-center gap-x-3 mb-4">
-                    <i class="fa-solid fa-microchip text-[#556b2f] text-xl"></i>
-                    <div class="font-semibold tracking-tight">Technology Enthusiast</div>
+            <!-- Card 2 -->
+            <div class="mindset-card group">
+                <div class="mindset-number">02</div>
+                <div class="mindset-icon-wrap">
+                    <i class="fa-solid fa-microchip"></i>
                 </div>
-                <p class="text-sm text-zinc-400">Obsessed with leverage. Constantly exploring new tools, platforms, and systems that multiply impact and reduce friction.</p>
+                <h3 class="mindset-title">Technology Enthusiast</h3>
+                <p class="mindset-body">Obsessed with leverage. Constantly exploring new tools, platforms, and systems that multiply impact and reduce friction.</p>
+                <div class="mindset-glow mindset-glow--green"></div>
             </div>
 
-            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
-                <div class="flex items-center gap-x-3 mb-4">
-                    <i class="fa-solid fa-lightbulb text-[#556b2f] text-xl"></i>
-                    <div class="font-semibold tracking-tight">Inventor</div>
+            <!-- Card 3 -->
+            <div class="mindset-card group">
+                <div class="mindset-number">03</div>
+                <div class="mindset-icon-wrap">
+                    <i class="fa-solid fa-lightbulb"></i>
                 </div>
-                <p class="text-sm text-zinc-400">Turns abstract ideas into working prototypes and protected IP. Green energy systems, digital platforms, and operational tools.</p>
+                <h3 class="mindset-title">Inventor</h3>
+                <p class="mindset-body">Turns abstract ideas into working prototypes and protected IP. Green energy systems, digital platforms, and operational tools.</p>
+                <div class="mindset-glow mindset-glow--green"></div>
             </div>
 
-            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
-                <div class="flex items-center gap-x-3 mb-4">
-                    <i class="fa-solid fa-chart-line text-[#556b2f] text-xl"></i>
-                    <div class="font-semibold tracking-tight">Investor</div>
+            <!-- Card 4 — TALL (spans 2 rows) -->
+            <div class="mindset-card mindset-card--tall group">
+                <div class="mindset-number">04</div>
+                <div class="mindset-icon-wrap mindset-icon-wrap--lg">
+                    <i class="fa-solid fa-chart-line"></i>
                 </div>
-                <p class="text-sm text-zinc-400">Deploys capital with conviction. Launching PE fund to back founders who share the same clarity and execution bias.</p>
+                <h3 class="mindset-title mindset-title--lg">Investor</h3>
+                <p class="mindset-body">Deploys capital with conviction. Backing founders who share the same clarity and execution bias — high-conviction acquisitions only.</p>
+                <div class="mindset-stat">
+                    <span class="mindset-stat-value">$39M</span>
+                    <span class="mindset-stat-label">Total Exits</span>
+                </div>
+                <div class="mindset-glow mindset-glow--amber"></div>
             </div>
 
-            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
-                <div class="flex items-center gap-x-3 mb-4">
-                    <i class="fa-solid fa-brain text-[#556b2f] text-xl"></i>
-                    <div class="font-semibold tracking-tight">Abstract Thinker</div>
+            <!-- Card 5 -->
+            <div class="mindset-card group">
+                <div class="mindset-number">05</div>
+                <div class="mindset-icon-wrap">
+                    <i class="fa-solid fa-brain"></i>
                 </div>
-                <p class="text-sm text-zinc-400">Sees systems, patterns, and leverage points others miss. Connects disparate ideas into elegant, high-impact solutions.</p>
+                <h3 class="mindset-title">Abstract Thinker</h3>
+                <p class="mindset-body">Sees systems, patterns, and leverage points others miss. Connects disparate ideas into elegant, high-impact solutions.</p>
+                <div class="mindset-glow mindset-glow--green"></div>
             </div>
 
-
-            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
-                <div class="flex items-center gap-x-3 mb-4">
-                    <i class="fa-solid fa-rocket text-[#556b2f] text-xl"></i>
-                    <div class="font-semibold tracking-tight">Futurist</div>
+            <!-- Card 6 -->
+            <div class="mindset-card group">
+                <div class="mindset-number">06</div>
+                <div class="mindset-icon-wrap">
+                    <i class="fa-solid fa-rocket"></i>
                 </div>
-                <p class="text-sm text-zinc-400">Anticipates shifts in technology, energy, and human systems. Positions ventures and inventions at the edge of what's next.</p>
+                <h3 class="mindset-title">Futurist</h3>
+                <p class="mindset-body">Anticipates shifts in technology, energy, and human systems. Positions ventures at the edge of what's next.</p>
+                <div class="mindset-glow mindset-glow--green"></div>
             </div>
 
-            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
-                <div class="flex items-center gap-x-3 mb-4">
-                    <i class="fa-solid fa-compress-arrows-alt text-[#556b2f] text-xl"></i>
-                    <div class="font-semibold tracking-tight">Minimalist</div>
+            <!-- Card 7 -->
+            <div class="mindset-card group">
+                <div class="mindset-number">07</div>
+                <div class="mindset-icon-wrap">
+                    <i class="fa-solid fa-compress-arrows-alt"></i>
                 </div>
-                <p class="text-sm text-zinc-400">Eliminates noise. Focuses only on what creates outsized value. Clean lines in life, code, strategy, and design.</p>
+                <h3 class="mindset-title">Minimalist</h3>
+                <p class="mindset-body">Eliminates noise. Focuses only on what creates outsized value. Clean lines in life, code, strategy, and design.</p>
+                <div class="mindset-glow mindset-glow--green"></div>
             </div>
 
-            <div class="attribute-card bg-zinc-900 border border-zinc-800 hover:border-[#556b2f]/60 rounded-3xl p-6">
-                <div class="flex items-center gap-x-3 mb-4">
-                    <i class="fa-solid fa-gauge-high text-[#556b2f] text-xl"></i>
-                    <div class="font-semibold tracking-tight">Operational Executor</div>
+            <!-- Card 8 — WIDE -->
+            <div class="mindset-card mindset-card--wide group">
+                <div class="mindset-number">08</div>
+                <div class="mindset-icon-wrap">
+                    <i class="fa-solid fa-gauge-high"></i>
                 </div>
-                <p class="text-sm text-zinc-400">Every business built and operated cash flow positive from day one. No burn, no excuses — revenue disciplines strategy, and profit validates every move.</p>
+                <h3 class="mindset-title">Operational Executor</h3>
+                <p class="mindset-body">Every business built and operated cash flow positive from day one. No burn, no excuses — revenue disciplines strategy, and profit validates every move.</p>
+                <div class="mindset-glow mindset-glow--amber"></div>
             </div>
-
 
         </div>
     </section>
